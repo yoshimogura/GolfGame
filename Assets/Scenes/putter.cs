@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class putter : MonoBehaviour
 {
     // Start is called before the first frame update
-    float shotpower=90; 
-    public Vector3 torque = new Vector3(5f, 0f, 0f);
+    public float shotpower=-50; 
+    
     void Start()
     {
       
@@ -21,8 +21,13 @@ public class putter : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.Space))
       {
          Rigidbody rb = GetComponent<Rigidbody>();   //取得してる
-            rb.AddForce(torque,ForceMode.Acceleration);
+            rb.AddForce(shotpower,0,0,ForceMode.VelocityChange);
       }
+      if(this.transform.position.y < 9.4)
+      {
+        this.transform.position = new Vector3(38, 14, -58);
+      }
+
     }
 
 }
