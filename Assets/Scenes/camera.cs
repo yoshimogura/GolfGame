@@ -5,18 +5,20 @@ using UnityEngine;
 public class camera : MonoBehaviour
 {
     // Start is called before the first frame update
-float x=10;
+    GameObject boll;
     void Start()
     {
-       Vector3 tmp = GameObject.Find("ボール (1)").transform.position;
-        x = tmp.x;
+        this.boll=GameObject.Find("ボール (1)");
+        
     }
     // Update is called once per frame
     void Update()
     {
-        if(20>x){
-            Debug.Log("kamera");
+        if(-14>this.boll.transform.position.x){
+
+            Debug.Log("camera");
         }
+
 
     }
     }
