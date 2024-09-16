@@ -9,15 +9,12 @@ public class putter : MonoBehaviour
     
     public float shotpower=-50; 
     public Rigidbody rb;
-    public string permit="false";
-    float x=-1;
-    float Memorization=0;
-    string firstshot ="YES";
+    string permit="false";
 
     void FixedUpdate()
     {
       
-      
+      permit = rb.IsSleeping() ? "true" : "false";
         
          
     }
@@ -25,14 +22,12 @@ public class putter : MonoBehaviour
 
     void Update()
     {
+        
+ 
       
-    // if(Input.GetKeyDown(KeyCode.Space))
+
     if(Input.GetKeyDown(KeyCode.Space)&&permit=="true")
       {
-        permit="false";
-        if(firstshot=="YES"){
-         firstshot ="NO";
-        }
          Rigidbody rb = GetComponent<Rigidbody>();   //取得してる
             rb.AddForce(shotpower,0,0,ForceMode.VelocityChange);
             
@@ -47,19 +42,7 @@ public class putter : MonoBehaviour
 
 
 
-      Debug.Log(x-Memorization  );
-      Debug.Log(permit);
-      Debug.Log(firstshot);
-        // permit = rb.IsSleeping() ? "true" : "false";
-        if(firstshot=="NO"){
-          x=this.transform.position.x;
-        }
-        if(x-Memorization<=0.001){
-          permit="true";
-        }
-        if(firstshot=="NO"){
-         Memorization=x;
-        }
+    
     }
 
 }
