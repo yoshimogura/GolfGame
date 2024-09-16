@@ -10,7 +10,6 @@ public class camera : MonoBehaviour
     {
 
         this.boll=GameObject.Find("ボール (1)");
-        
     }
     // Update is called once per frame
     void Update()
