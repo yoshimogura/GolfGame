@@ -11,6 +11,11 @@ public class putter : MonoBehaviour
     public Rigidbody rb;
     string permit="false";
 
+
+
+    void Start(){
+      
+    }
     void FixedUpdate()
     {
       
@@ -22,10 +27,6 @@ public class putter : MonoBehaviour
 
     void Update()
     {
-        
- 
-      
-
     if(Input.GetKeyDown(KeyCode.Space)&&permit=="true")
       {
          Rigidbody rb = GetComponent<Rigidbody>();   //取得してる
