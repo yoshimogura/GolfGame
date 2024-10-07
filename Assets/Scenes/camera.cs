@@ -18,7 +18,7 @@ public class camera : MonoBehaviour
         if(95>this.boll.transform.position.x){
             GameObject camera = GameObject.Find("Main Camera");        
             // Debug.Log("camera exist");
-            camera.transform.position = new Vector3(100, 20, -59);
+            camera.transform.position = new Vector3(148, 25, -61);
             
         }
 
