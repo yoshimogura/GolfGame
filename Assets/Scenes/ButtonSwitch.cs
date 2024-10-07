@@ -10,7 +10,7 @@ public class Button : MonoBehaviour
     public string sceneName = "";
 
     void Start(){
-        SceneManager.LoadScene("Title");
+        
     }
     public void SwitchScene()
     {

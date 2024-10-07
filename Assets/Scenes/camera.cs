@@ -8,16 +8,16 @@ public class camera : MonoBehaviour
     GameObject boll;
     void Start(){
         GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.position = new Vector3(158, 32, -57);
+        camera.transform.position = new Vector3(151, 30, -62);
         
     }
     // Update is called once per frame
     void Update()
     {   
-         this.boll=GameObject.Find("ボール (1)");
-        if(90>this.boll.transform.position.x){
+         this.boll=GameObject.Find("ボール（1)");
+        if(95>this.boll.transform.position.x){
             GameObject camera = GameObject.Find("Main Camera");        
-            Debug.Log("camera exist");
+            // Debug.Log("camera exist");
             camera.transform.position = new Vector3(100, 20, -59);
             
         }

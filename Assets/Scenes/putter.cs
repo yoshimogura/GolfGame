@@ -7,29 +7,34 @@ public class putter : MonoBehaviour
 {
     // Start is called before the first frame update
     
-    public float shotpower=-50; 
+    public float shotpower=-1; 
     public Rigidbody rb;
-    string permit="false";
+    bool moving=false;
 
 
 
     void Start(){
       
+      rb = GetComponent<Rigidbody>();   //取得してる
     }
     void FixedUpdate()
     {
       
-      permit = rb.IsSleeping() ? "true" : "false";
-        
-         
+     
+        if(rb.IsSleeping()){
+        moving=true;
+      }else{
+        moving=false;
+      
+      }
     }
     
 
     void Update()
     {
-    if(Input.GetKeyDown(KeyCode.Space)&&permit=="true")
+    if(Input.GetKeyDown(KeyCode.Space)&&moving==!false)
       {
-         Rigidbody rb = GetComponent<Rigidbody>();   //取得してる
+        //  Rigidbody rb = GetComponent<Rigidbody>();   //取得してる
             rb.AddForce(shotpower,0,0,ForceMode.VelocityChange);
             
             
