@@ -8,7 +8,7 @@ public class camera : MonoBehaviour
     GameObject boll;
     void Start(){
         GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.position = new Vector3(151, 30, -62);
+        camera.transform.position = new Vector3(148, 25, -61);
         
     }
     // Update is called once per frame
@@ -18,7 +18,7 @@ public class camera : MonoBehaviour
         if(95>this.boll.transform.position.x){
             GameObject camera = GameObject.Find("Main Camera");        
             // Debug.Log("camera exist");
-            camera.transform.position = new Vector3(148, 25, -61);
+            camera.transform.position = new Vector3(106, 20, -61);
             
         }
 
