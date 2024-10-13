@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4771799523971958451}
   - component: {fileID: 6840163407096690941}
   - component: {fileID: 9038537860742136756}
+  - component: {fileID: -3424978975058369884}
   m_Layer: 0
   m_Name: "\u30DC\u30FC\u30EB\uFF081)"
   m_TagString: Untagged
@@ -92,7 +93,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3539407181324418732}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fa3c617491bdf1247948a79c721674c2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -118,5 +119,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934894992cbd0084b9b62dafc8ec003e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceAmount: 3
   shotpower: -1
-  rb: {fileID: 0}
+  logging: 0
+  startMonitoringSpeed: 1
+  stopSpeedThreshold: 0.5
+  move: 0
+  addForce: 0
+--- !u!54 &-3424978975058369884
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539407181324418732}
+  serializedVersion: 4
+  m_Mass: 0.1
+  m_Drag: 0.2
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
