@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class putter : MonoBehaviour
 {
 
@@ -16,7 +17,7 @@ public class putter : MonoBehaviour
 
 
     public bool logging;
-    public float startMonitoringSpeed = 0.5f;
+    public float startMonitoringSpeed = 1.5f;
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ
@@ -24,8 +25,13 @@ public class putter : MonoBehaviour
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   public bool addForce = false;
 
+  //ショットの数
+  public static int shotcount=0;
 
+  public Text scoreText; // スコアを表示するText（Legacy）
+  public Text shotText; // 打てるかどうかを表すText（Legacy）
   
+  bool shot=false;
 
 Plane plane = new Plane();
 	    float distance = 0;
@@ -36,7 +42,8 @@ Plane plane = new Plane();
 
         
         Debug.Log(transform.forward);
-
+        UpdateScoreText();
+        UpdateShotText();
 
     }
     
@@ -54,6 +61,7 @@ Plane plane = new Plane();
     {
       Debug.Log("start move");
       move = true; // 速度監視を開始
+
     }
  
     // 速度監視が開始されている場合、速度を監視する
@@ -61,6 +69,7 @@ Plane plane = new Plane();
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
+      
       rb.velocity = Vector3.zero;
       rb.angularVelocity = Vector3.zero;
 
@@ -68,19 +77,31 @@ Plane plane = new Plane();
       rb.isKinematic = true;
       move = false;
       addForce = false;
+      shot=false;
+      UpdateShotText();
     }
-
+      //打つ
     if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)
     {
       Debug.Log("space key down");
       rb.isKinematic = false;
       rb.AddForce(transform.forward * forceAmount, ForceMode.Impulse);
       addForce = true;
+      shotcount=shotcount+1;
+      UpdateScoreText();
+      shot=true;
+      UpdateShotText();
+      
     }
+    //穴に入った判定
       if(this.transform.position.y < 10)
       {
-        this.transform.position = new Vector3(129, 15, -58);
-        rb.velocity = Vector3.zero;
+        
+        if(SceneManager.GetActiveScene().name=="Game"){
+          SceneManager.LoadScene("2Stage");
+        }else{
+          SceneManager.LoadScene("Title");
+        }
   
       }
     
@@ -98,5 +119,22 @@ Plane plane = new Plane();
 			var lookPoint = ray.GetPoint(distance);
 			transform.LookAt (lookPoint);
     }
+
+     
+    }
+    void UpdateScoreText()
+    {
+        // スコアをテキストに反映
+        scoreText.text = "打った回数: " + shotcount;
+    }
+    void UpdateShotText()
+    {
+      if(shot){
+        shotText.text = "移動中...";
+      }else{
+        shotText.text = "停止中";
+      }
+        // スコアをテキストに反映
+        
     }
 }
