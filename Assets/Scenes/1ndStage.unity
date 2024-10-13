@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4372126760449045416, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 4646594010607005058, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
       propertyPath: m_Name
       value: Canvas (1)
@@ -265,19 +269,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9124269766907347186, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.4493136
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9124269766907347186, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.1045587
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9124269766907347186, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -98
+      value: -174
       objectReference: {fileID: 0}
     - target: {fileID: 9124269766907347186, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 308
+      value: 329
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2831,7 +2835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1788649880782017163, guid: fadc03cdb283a354ebbc4dff8d4d6c10, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1788649880782017163, guid: fadc03cdb283a354ebbc4dff8d4d6c10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2863,11 +2867,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1788649880782017163, guid: fadc03cdb283a354ebbc4dff8d4d6c10, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 321
+      value: 284
       objectReference: {fileID: 0}
     - target: {fileID: 1788649880782017163, guid: fadc03cdb283a354ebbc4dff8d4d6c10, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 320
+      value: 327
       objectReference: {fileID: 0}
     - target: {fileID: 1788649880782017163, guid: fadc03cdb283a354ebbc4dff8d4d6c10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

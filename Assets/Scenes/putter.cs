@@ -100,7 +100,7 @@ Plane plane = new Plane();
       if(this.transform.position.y < 10)
       {
         
-        if(SceneManager.GetActiveScene().name=="Game"){
+        if(SceneManager.GetActiveScene().name=="1ndStage"){
           SceneManager.LoadScene("2nd Stage");
         }else{
           SceneManager.LoadScene("Title");
