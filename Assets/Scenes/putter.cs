@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 public class putter : MonoBehaviour
 {
 
@@ -32,6 +33,8 @@ public class putter : MonoBehaviour
   public Text shotText; // 打てるかどうかを表すText（Legacy）
   
   bool shot=false;
+
+
 
 Plane plane = new Plane();
 	    float distance = 0;
@@ -65,7 +68,7 @@ Plane plane = new Plane();
     }
  
     // 速度監視が開始されている場合、速度を監視する
-    if (move && rb.velocity.magnitude < stopSpeedThreshold)
+    if (move && rb.velocity.magnitude < stopSpeedThreshold&&(transform.position.y>=15.6||transform.position.y<=12.79))
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
