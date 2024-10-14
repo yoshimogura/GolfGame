@@ -101,7 +101,9 @@ Plane plane = new Plane();
       {
         
         if(SceneManager.GetActiveScene().name=="1ndStage"){
-          SceneManager.LoadScene("2nd Stage");
+          SceneManager.LoadScene("2ndStage");
+        }else　if(SceneManager.GetActiveScene().name=="2ndStage"){
+          SceneManager.LoadScene("3ndStage");
         }else{
           SceneManager.LoadScene("Title");
         }
