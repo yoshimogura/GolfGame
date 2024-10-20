@@ -33,7 +33,7 @@ public class putter : MonoBehaviour
   public Text shotText; // 打てるかどうかを表すText（Legacy）
   
   bool shot=false;
-
+  
 
 
 Plane plane = new Plane();
@@ -48,6 +48,7 @@ Plane plane = new Plane();
         UpdateScoreText();
         UpdateShotText();
 
+
     }
     
 
@@ -57,6 +58,7 @@ Plane plane = new Plane();
     if (move && logging)
     {
       Debug.Log("magnitude: " + rb.velocity.magnitude);
+      
     }
 
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
@@ -97,13 +99,15 @@ Plane plane = new Plane();
       
     }
     //穴に入った判定
-      if(this.transform.position.y < 10)
+      if(this.transform.position.y < 11)
       {
         
         if(SceneManager.GetActiveScene().name=="1ndStage"){
           SceneManager.LoadScene("2ndStage");
         }else　if(SceneManager.GetActiveScene().name=="2ndStage"){
           SceneManager.LoadScene("3ndStage");
+        }else if(SceneManager.GetActiveScene().name=="3ndStage"){
+          SceneManager.LoadScene("4ndStage");
         }else{
           SceneManager.LoadScene("Title");
         }
@@ -141,5 +145,15 @@ Plane plane = new Plane();
       }
         // スコアをテキストに反映
         
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name=="当たってはいけない壁"){
+            if(SceneManager.GetActiveScene().name=="3ndStage"){
+          SceneManager.LoadScene("3ndStage");
+        }else{
+          SceneManager.LoadScene("4ndStage");
+        }
+        }
     }
 }

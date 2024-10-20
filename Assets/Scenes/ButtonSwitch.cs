@@ -8,14 +8,9 @@ using UnityEngine.SceneManagement;
 public class Button : MonoBehaviour
 {
     public string sceneName = "";
-
-    void Start(){
-        
-    }
-    public void SwitchScene()
-    {
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.Space)){
         SceneManager.LoadScene(sceneName);
+        }
     }
-
-
 }
