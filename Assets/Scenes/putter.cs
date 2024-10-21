@@ -33,32 +33,36 @@ public class putter : MonoBehaviour
   public Text shotText; // 打てるかどうかを表すText（Legacy）
   
   bool shot=false;
-  
+
 
 
 Plane plane = new Plane();
 	    float distance = 0;
-
+    
     void Start(){
         rb = GetComponent<Rigidbody>();
-
-
         
         Debug.Log(transform.forward);
         UpdateScoreText();
         UpdateShotText();
-
-
+        CameraControlle();
     }
-    
-
+    void CameraControlle(){
+      
+    }
     void Update()
     {
       // ボールが動いている時に速度をログに出力
     if (move && logging)
     {
       Debug.Log("magnitude: " + rb.velocity.magnitude);
-      
+      if(94>this.transform.position.x){
+            GameObject camera = GameObject.Find("Main Camera"); 
+            camera.transform.position = new Vector3(106, 20, -61);
+      }else{
+            GameObject camera = GameObject.Find("Main Camera");  
+            camera.transform.position = new Vector3(148, 25, -61);
+        }
     }
 
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
@@ -84,10 +88,22 @@ Plane plane = new Plane();
       addForce = false;
       shot=false;
       UpdateShotText();
+      
     }
       //打つ
     if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)
     {
+      //マウスの位置で方向を決定
+    // カメラとマウスの位置を元にRayを準備
+		var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		// プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
+		plane.SetNormalAndPosition (Vector3.up, transform.localPosition);
+		if (plane.Raycast (ray, out distance)) {
+			// 距離を元に交点を算出して、交点の方を向く
+			var lookPoint = ray.GetPoint(distance);
+			transform.LookAt (lookPoint);
+    }
+    //その方向に力を加える
       Debug.Log("space key down");
       rb.isKinematic = false;
       rb.AddForce(transform.forward * forceAmount, ForceMode.Impulse);
@@ -116,18 +132,6 @@ Plane plane = new Plane();
     
 
 
-
-    // カメラとマウスの位置を元にRayを準備
-		var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-
-		// プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
-		plane.SetNormalAndPosition (Vector3.up, transform.localPosition);
-		if (plane.Raycast (ray, out distance)) {
-
-			// 距離を元に交点を算出して、交点の方を向く
-			var lookPoint = ray.GetPoint(distance);
-			transform.LookAt (lookPoint);
-    }
 
      
     }
