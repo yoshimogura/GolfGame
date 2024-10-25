@@ -33,8 +33,10 @@ public class putter : MonoBehaviour
   public Text shotText; // 打てるかどうかを表すText（Legacy）
   
   bool shot=false;
+  public GameObject cameraObject;  // カメラオブジェクトをインスペクタで設定
+  public Transform cup;            // カップのTransform
 
-
+  public float distanceFromBall = 10f; // ボールからカメラをどれだけ離すか
 
 Plane plane = new Plane();
 	    float distance = 0;
@@ -88,7 +90,22 @@ Plane plane = new Plane();
       addForce = false;
       shot=false;
       UpdateShotText();
-      
+      // CameraControllerスクリプトを取得
+            CameraController cameraController = cameraObject.GetComponent<CameraController>();
+
+            if (cameraController != null)
+            {
+                // カメラの位置を設定し、カップを向く
+                Vector3 direction = (cup.position - this.transform.position).normalized;
+                Debug.Log("aaa"+direction);
+                Vector3 newCameraPosition =this.transform.position - direction * 16f; // 例としてカメラの新しい位置
+                newCameraPosition.y +=10f; 
+                cameraController.SetPosition(newCameraPosition, cup);
+            }
+            else
+            {
+                Debug.LogError("CameraControllerが見つかりません。");
+            }
     }
       //打つ
     if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)
@@ -117,7 +134,6 @@ Plane plane = new Plane();
     //穴に入った判定
       if(this.transform.position.y < 11)
       {
-        
         if(SceneManager.GetActiveScene().name=="1ndStage"){
           SceneManager.LoadScene("2ndStage");
         }else　if(SceneManager.GetActiveScene().name=="2ndStage"){

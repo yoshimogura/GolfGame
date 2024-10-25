@@ -853,6 +853,7 @@ GameObject:
   - component: {fileID: 513196260}
   - component: {fileID: 513196259}
   - component: {fileID: 513196258}
+  - component: {fileID: 513196261}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -934,6 +935,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 22.521, y: -93.43, z: -2.612}
+--- !u!114 &513196261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513196257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8011ea760b886d044a466ddd23a5dd15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &868006398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8347,6 +8360,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: cup
+      value: 
+      objectReference: {fileID: 1535290106}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: shotText
       value: 
       objectReference: {fileID: 1946048750}
@@ -8354,6 +8371,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1023915861}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: cameraObject
+      value: 
+      objectReference: {fileID: 513196257}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -8432,6 +8453,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2549cb0a1d3073e48835cf70edd5169e, type: 3}
+--- !u!4 &1535290106 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2712960031265704599, guid: 2549cb0a1d3073e48835cf70edd5169e, type: 3}
+  m_PrefabInstance: {fileID: 1535290105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1675231466
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,12 +120,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceAmount: 3
-  shotpower: -1
   logging: 0
   startMonitoringSpeed: 1
   stopSpeedThreshold: 0.5
   move: 0
   addForce: 0
+  scoreText: {fileID: 0}
+  shotText: {fileID: 0}
+  cameraObject: {fileID: 0}
+  cup: {fileID: 0}
 --- !u!54 &-3424978975058369884
 Rigidbody:
   m_ObjectHideFlags: 0
