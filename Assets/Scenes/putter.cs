@@ -97,9 +97,8 @@ Plane plane = new Plane();
             {
                 // カメラの位置を設定し、カップを向く
                 Vector3 direction = (cup.position - this.transform.position).normalized;
-                Debug.Log("aaa"+direction);
                 Vector3 newCameraPosition =this.transform.position - direction * 16f; // 例としてカメラの新しい位置
-                newCameraPosition.y +=10f; 
+                newCameraPosition.y +=12f; 
                 cameraController.SetPosition(newCameraPosition, cup);
             }
             else
