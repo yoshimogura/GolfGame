@@ -18,7 +18,7 @@ public class putter : MonoBehaviour
 
 
     public bool logging;
-    public float startMonitoringSpeed = 1.5f;
+    public float startMonitoringSpeed = 2f;
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ
