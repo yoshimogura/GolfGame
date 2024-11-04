@@ -19,7 +19,7 @@ public class clone : MonoBehaviour
 
     void GenerateClones()
     {
-        for (int i = 0; i < numberOfClones; i++)
+        for (int i = 1; i < numberOfClones; i++)
         {
             // X座標
             float xPosition = Random.Range(74f, 135f);
