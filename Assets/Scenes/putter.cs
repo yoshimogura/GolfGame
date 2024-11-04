@@ -37,7 +37,6 @@ public class putter : MonoBehaviour
   public Transform cup;            // カップのTransform
 
   public float distanceFromBall = 10f; // ボールからカメラをどれだけ離すか
-
 Plane plane = new Plane();
 	    float distance = 0;
     
@@ -48,6 +47,7 @@ Plane plane = new Plane();
         UpdateScoreText();
         UpdateShotText();
         CameraControlle();
+    
     }
     void CameraControlle(){
       
@@ -144,7 +144,9 @@ Plane plane = new Plane();
         }
   
       }
+
     
+
 
 
 
