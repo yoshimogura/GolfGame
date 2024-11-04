@@ -21,7 +21,7 @@ public class clone : MonoBehaviour
     {
         for (int i = 0; i < numberOfClones; i++)
         {
-            // X座標を74から135までの範囲でランダムに設定
+            // X座標
             float xPosition = Random.Range(74f, 135f);
             float zPosition;
             if (Random.value < 0.5f)
@@ -35,6 +35,9 @@ public class clone : MonoBehaviour
             // クローンを生成
             Vector3 clonePosition = new Vector3(xPosition, yPosition, zPosition);
             Instantiate(objectToClone, clonePosition, Quaternion.identity);
+            if(i>10){
+            break;
+            }
         }
     
 }
