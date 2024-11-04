@@ -25,7 +25,6 @@ public class clone : MonoBehaviour
         {
             // X座標
             float xPosition = Random.Range(74f, 135f);
-            float zPosition;
             if (Random.value < 0.5f)
             {
                 zPosition = Random.Range(-75f, -73f);
@@ -41,4 +40,3 @@ public class clone : MonoBehaviour
     
 }
 }
-//74 135

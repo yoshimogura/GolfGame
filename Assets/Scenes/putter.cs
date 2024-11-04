@@ -21,7 +21,6 @@ public class putter : MonoBehaviour
     public bool logging;
     public float startMonitoringSpeed = 2f;
   // スピードが停止したと判断する閾値
-     float StartSpeed=0.001f;
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ
   public bool move = false;
@@ -87,7 +86,7 @@ Plane plane = new Plane();
     }
 
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
-    if (!move && rb.velocity.magnitude >= StartSpeed)
+    if (!move && rb.velocity.magnitude > 0)
     {
       Debug.Log("start move");
       move = true; // 速度監視を開始
