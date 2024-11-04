@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using TMPro;
 public class putter : MonoBehaviour
 {
 
@@ -20,12 +21,16 @@ public class putter : MonoBehaviour
     public bool logging;
     public float startMonitoringSpeed = 2f;
   // スピードが停止したと判断する閾値
+     float StartSpeed=0.001f;
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ
   public bool move = false;
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   public bool addForce = false;
-
+  public float maxShotPower = 20f;     // 最大のショット強さ
+  public TextMeshProUGUI powerText;
+  private Vector3 shotDirection;       // ショットの方向
+  private float shotPower;             // 現在のショット強さ
   //ショットの数
   public static int shotcount=0;
 
@@ -54,6 +59,20 @@ Plane plane = new Plane();
     }
     void Update()
     {
+      // マウスからレイを飛ばして衝突地点を取得
+        Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(Powerray, out hit))
+        {
+            // 衝突地点とボールの位置から距離と方向を計算
+            Vector3 hitPosition = hit.point;
+            shotDirection = (hitPosition - this.transform.position).normalized;
+            shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
+
+            // UIに現在のショット強さを表示
+            powerText.text = $"Power: {shotPower*5:F1}";
+        }
       // ボールが動いている時に速度をログに出力
     if (move && logging)
     {
@@ -68,7 +87,7 @@ Plane plane = new Plane();
     }
 
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
-    if (!move && rb.velocity.magnitude >= startMonitoringSpeed)
+    if (!move && rb.velocity.magnitude >= StartSpeed)
     {
       Debug.Log("start move");
       move = true; // 速度監視を開始
@@ -122,7 +141,7 @@ Plane plane = new Plane();
     //その方向に力を加える
       Debug.Log("space key down");
       rb.isKinematic = false;
-      rb.AddForce(transform.forward * forceAmount, ForceMode.Impulse);
+      rb.AddForce(transform.forward * (shotPower/6), ForceMode.Impulse);
       addForce = true;
       shotcount=shotcount+1;
       UpdateScoreText();

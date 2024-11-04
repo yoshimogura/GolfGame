@@ -15,7 +15,9 @@ public class clone : MonoBehaviour
         GenerateClones();
     
     }
+    void Update(){
 
+    }
 
     void GenerateClones()
     {
