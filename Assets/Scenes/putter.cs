@@ -41,6 +41,13 @@ public class putter : MonoBehaviour
   public Transform cup;            // カップのTransform
 
   public float distanceFromBall = 10f; // ボールからカメラをどれだけ離すか
+
+
+  string NextScenename="";
+  public TextMeshProUGUI nextStageText; // "Next Stage"テキスト用のUI Text 
+  float displayDuration = 2f; // テキスト表示時間 
+  private bool isSceneSwitching = false;
+  bool cameraPermission=true;
 Plane plane = new Plane();
 	    float distance = 0;
     
@@ -51,6 +58,7 @@ Plane plane = new Plane();
         UpdateScoreText();
         UpdateShotText();
         CameraControlle();
+        nextStageText.gameObject.SetActive(false);
     
     }
     void CameraControlle(){
@@ -111,7 +119,7 @@ Plane plane = new Plane();
       // CameraControllerスクリプトを取得
             CameraController cameraController = cameraObject.GetComponent<CameraController>();
 
-            if (cameraController != null)
+            if (cameraController != null&&cameraPermission)
             {
                 // カメラの位置を設定し、カップを向く
                 Vector3 direction = (cup.position - this.transform.position).normalized;
@@ -121,7 +129,7 @@ Plane plane = new Plane();
             }
             else
             {
-                Debug.LogError("CameraControllerが見つかりません。");
+                Debug.LogError("CameraControllerが見つかりません。もしくはcameraPermissionがfalseです");
             }
     }
       //打つ
@@ -151,25 +159,28 @@ Plane plane = new Plane();
     //穴に入った判定
       if(this.transform.position.y < 11)
       {
-        if(SceneManager.GetActiveScene().name=="1ndStage"){
-          SceneManager.LoadScene("2ndStage");
+        if(SceneManager.GetActiveScene().name=="4ndStage"){
+          NextScenename="Title";
+        }else if(SceneManager.GetActiveScene().name=="1ndStage"){
+          NextScenename="2ndStage";
         }else　if(SceneManager.GetActiveScene().name=="2ndStage"){
-          SceneManager.LoadScene("3ndStage");
+          NextScenename="3ndStage";
         }else if(SceneManager.GetActiveScene().name=="3ndStage"){
-          SceneManager.LoadScene("4ndStage");
-        }else{
-          SceneManager.LoadScene("Title");
+          NextScenename="4ndStage";
         }
-  
+        cameraPermission=false;
+         StartCoroutine(SwitchScene());
       }
-
-    
-
-
-
-
-     
     }
+     IEnumerator SwitchScene(){
+      isSceneSwitching = true; nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
+      yield return new WaitForSeconds(displayDuration); // 指定時間待機 
+      // 次のシーンに移動 
+      SceneManager.LoadScene(NextScenename);
+      nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
+      isSceneSwitching = false;
+      cameraPermission=true;
+     }
     void UpdateScoreText()
     {
         // スコアをテキストに反映
