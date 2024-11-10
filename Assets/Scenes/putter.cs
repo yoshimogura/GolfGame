@@ -127,10 +127,10 @@ Plane plane = new Plane();
                 newCameraPosition.y +=12f; 
                 cameraController.SetPosition(newCameraPosition, cup);
             }
-            else
-            {
-                Debug.LogError("CameraControllerが見つかりません。もしくはcameraPermissionがfalseです");
-            }
+            // else
+            // {
+            //     Debug.LogError("CameraControllerが見つかりません。もしくはcameraPermissionがfalseです");
+            // }
     }
       //打つ
     if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)
