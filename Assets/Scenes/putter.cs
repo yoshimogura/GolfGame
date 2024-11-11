@@ -149,6 +149,7 @@ Plane plane = new Plane();
       Debug.Log("space key down");
       rb.isKinematic = false;
       rb.AddForce(transform.forward * (shotPower/6), ForceMode.Impulse);
+      GetComponent<AudioSource>().Play();//音
       addForce = true;
       shotcount=shotcount+1;
       UpdateScoreText();
