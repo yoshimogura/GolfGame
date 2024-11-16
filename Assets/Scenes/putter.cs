@@ -18,15 +18,15 @@ public class putter : MonoBehaviour
     
 
 
-    public bool logging;
-    public float startMonitoringSpeed = 2f;
+    public bool logging=true;
+    public float startMonitoringSpeed = 0.8f;
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ
   public bool move = false;
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   public bool addForce = false;
-  public float maxShotPower = 20f;     // 最大のショット強さ
+  public float maxShotPower = 25f;     // 最大のショット強さ
   public TextMeshProUGUI powerText;
   private Vector3 shotDirection;       // ショットの方向
   private float shotPower;             // 現在のショット強さ
@@ -79,6 +79,7 @@ Plane plane = new Plane();
 
             // UIに現在のショット強さを表示
             powerText.text = $"Power: {shotPower*5:F1}";
+            
         }
       // ボールが動いている時に速度をログに出力
     if (move && logging)
@@ -88,8 +89,8 @@ Plane plane = new Plane();
             GameObject camera = GameObject.Find("Main Camera"); 
             camera.transform.position = new Vector3(106, 20, -61);
       }else{
-            GameObject camera = GameObject.Find("Main Camera");  
-            camera.transform.position = new Vector3(148, 25, -61);
+            // GameObject camera = GameObject.Find("Main Camera");  
+            // camera.transform.position = new Vector3(148, 25, -61);
         }
     }
 
@@ -102,7 +103,7 @@ Plane plane = new Plane();
     }
  
     // 速度監視が開始されている場合、速度を監視する
-    if (move && rb.velocity.magnitude < stopSpeedThreshold&&(transform.position.y>=15.6||transform.position.y<=12.79))
+    if (move && rb.velocity.magnitude <startMonitoringSpeed&&(transform.position.y>=15.6||transform.position.y<=12.79))
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
@@ -125,6 +126,7 @@ Plane plane = new Plane();
                 Vector3 direction = (cup.position - this.transform.position).normalized;
                 Vector3 newCameraPosition =this.transform.position - direction * 16f; // 例としてカメラの新しい位置
                 newCameraPosition.y +=12f; 
+                
                 cameraController.SetPosition(newCameraPosition, cup);
             }
             // else
@@ -199,7 +201,7 @@ Plane plane = new Plane();
     }
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name=="当たってはいけない壁"){
+        if(collision.gameObject.name=="池の判定"){
             if(SceneManager.GetActiveScene().name=="3ndStage"){
           SceneManager.LoadScene("3ndStage");
         }else{
