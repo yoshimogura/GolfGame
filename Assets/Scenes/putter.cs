@@ -18,15 +18,15 @@ public class putter : MonoBehaviour
     
 
 
-    public bool logging=true;
+    public bool first=true;
     public float startMonitoringSpeed = 0.8f;
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
-  // 動いているフラグ
+  // 動いているフラグ 
   public bool move = false;
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   public bool addForce = false;
-  public float maxShotPower = 25f;     // 最大のショット強さ
+  public float maxShotPower = 20f;     // 最大のショット強さ
   public TextMeshProUGUI powerText;
   private Vector3 shotDirection;       // ショットの方向
   private float shotPower;             // 現在のショット強さ
@@ -82,12 +82,13 @@ Plane plane = new Plane();
             
         }
       // ボールが動いている時に速度をログに出力
-    if (move && logging)
+    if (move && first)
     {
       Debug.Log("magnitude: " + rb.velocity.magnitude);
       if(94>this.transform.position.x){
             GameObject camera = GameObject.Find("Main Camera"); 
-            camera.transform.position = new Vector3(106, 20, -61);
+            camera.transform.position = new Vector3(106, 24, -61);
+            first=false; 
       }else{
             // GameObject camera = GameObject.Find("Main Camera");  
             // camera.transform.position = new Vector3(148, 25, -61);
@@ -159,21 +160,7 @@ Plane plane = new Plane();
       UpdateShotText();
       
     }
-    //穴に入った判定
-      if(this.transform.position.y < 11)
-      {
-        if(SceneManager.GetActiveScene().name=="4ndStage"){
-          NextScenename="Title";
-        }else if(SceneManager.GetActiveScene().name=="1ndStage"){
-          NextScenename="2ndStage";
-        }else　if(SceneManager.GetActiveScene().name=="2ndStage"){
-          NextScenename="3ndStage";
-        }else if(SceneManager.GetActiveScene().name=="3ndStage"){
-          NextScenename="4ndStage";
-        }
-        cameraPermission=false;
-         StartCoroutine(SwitchScene());
-      }
+    
     }
      IEnumerator SwitchScene(){
       isSceneSwitching = true; nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
@@ -208,5 +195,20 @@ Plane plane = new Plane();
           SceneManager.LoadScene("4ndStage");
         }
         }
+        //穴に入った判定
+      if(collision.gameObject.name=="HollDetection")
+      {
+        if(SceneManager.GetActiveScene().name=="4ndStage"){
+          NextScenename="Title";
+        }else if(SceneManager.GetActiveScene().name=="1ndStage"){
+          NextScenename="2ndStage";
+        }else　if(SceneManager.GetActiveScene().name=="2ndStage"){
+          NextScenename="3ndStage";
+        }else if(SceneManager.GetActiveScene().name=="3ndStage"){
+          NextScenename="4ndStage";
+        }
+        cameraPermission=false;
+         StartCoroutine(SwitchScene());
+      }
     }
 }

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4496274447224160825}
   - component: {fileID: 4786764876552858562}
   - component: {fileID: 3100155487388634670}
-  - component: {fileID: 4328279150289071951}
   m_Layer: 0
   m_Name: petter
   m_TagString: Untagged
@@ -4793,15 +4792,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &4328279150289071951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474533448537124782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 934894992cbd0084b9b62dafc8ec003e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
