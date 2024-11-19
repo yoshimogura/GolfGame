@@ -46,11 +46,11 @@ public class putter : MonoBehaviour
   string NextScenename = "";
   public TextMeshProUGUI nextStageText; // "Next Stage"テキスト用のUI Text 
   float displayDuration = 2f; // テキスト表示時間 
-  private bool isSceneSwitching = false;
+  private bool isSceneSwitching = true;
   bool cameraPermission = true;
   Plane plane = new Plane();
   float distance = 0;
-
+  private bool isOnSlope = false;
   void Start()
   {
     rb = GetComponent<Rigidbody>();
@@ -65,6 +65,14 @@ public class putter : MonoBehaviour
   void CameraControlle()
   {
 
+  }
+  void OnCollisionStay(Collision collision)
+  { // "Slope"というタグを持つオブジェクトに触れているとき 
+    if (collision.gameObject.CompareTag("slope")) { isOnSlope = true; }
+  }
+  void OnCollisionExit(Collision collision)
+  { // "Slope"というタグを持つオブジェクトから離れたとき 
+    if (collision.gameObject.CompareTag("slope")) { isOnSlope = false; }
   }
   void Update()
   {
@@ -109,7 +117,7 @@ public class putter : MonoBehaviour
     }
 
     // 速度監視が開始されている場合、速度を監視する
-    if (move && rb.velocity.magnitude < startMonitoringSpeed && (transform.position.y >= 15.6 || transform.position.y <= 12.79))
+    if (move && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope)
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
