@@ -17050,6 +17050,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 300020928}
     - target: {fileID: 1384510926008384143, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
+      propertyPath: sound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 5969207a23d1b344f96eedb86d348dd7, type: 3}
+    - target: {fileID: 1384510926008384143, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
       propertyPath: shotText
       value: 
       objectReference: {fileID: 700730603}

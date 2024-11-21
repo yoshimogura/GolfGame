@@ -45,12 +45,14 @@ public class putter : MonoBehaviour
 
   string NextScenename = "";
   public TextMeshProUGUI nextStageText; // "Next Stage"テキスト用のUI Text 
-  float displayDuration = 2f; // テキスト表示時間 
+  float displayDuration = 3f; // テキスト表示時間 
   private bool isSceneSwitching = true;
   bool cameraPermission = true;
   Plane plane = new Plane();
   float distance = 0;
   private bool isOnSlope = false;
+  public AudioClip sound1;//音
+  AudioSource audioSource;//音
   void Start()
   {
     rb = GetComponent<Rigidbody>();
@@ -60,7 +62,7 @@ public class putter : MonoBehaviour
     UpdateShotText();
     CameraControlle();
     nextStageText.gameObject.SetActive(false);
-
+    audioSource = GetComponent<AudioSource>();//音の取得をしてる
   }
   void CameraControlle()
   {
@@ -178,10 +180,12 @@ public class putter : MonoBehaviour
   }
   IEnumerator SwitchScene()
   {
+    audioSource.PlayOneShot(sound1);
     isSceneSwitching = true; nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
-    yield return new WaitForSeconds(displayDuration); // 指定時間待機 
-                                                      // 次のシーンに移動 
-    SceneManager.LoadScene(NextScenename);
+    yield return new WaitForSeconds(displayDuration); // 指定時間待機
+    PlayerPrefs.SetInt("TotalShot", shotcount);
+    PlayerPrefs.Save();
+    SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
     nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
     isSceneSwitching = false;
     cameraPermission = true;
@@ -222,7 +226,7 @@ public class putter : MonoBehaviour
     {
       if (SceneManager.GetActiveScene().name == "4ndStage")
       {
-        NextScenename = "Title";
+        NextScenename = "Clear";
       }
       else if (SceneManager.GetActiveScene().name == "1ndStage")
       {
