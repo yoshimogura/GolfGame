@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using TMPro;
+using System;
 public class putter : MonoBehaviour
 {
 
@@ -40,7 +41,7 @@ public class putter : MonoBehaviour
   public GameObject cameraObject;  // カメラオブジェクトをインスペクタで設定
   public Transform cup;            // カップのTransform
 
-  public float distanceFromBall = 10f; // ボールからカメラをどれだけ離すか
+  public float distanceFromBall = 11f; // ボールからカメラをどれだけ離すか
 
 
   string NextScenename = "";
@@ -55,15 +56,24 @@ public class putter : MonoBehaviour
   public AudioClip sound1;//音
   AudioSource audioSource;//音
   public ChangeImage imageSwitcher;
+  bool check = true;
+  int Stage1ShotCount = 0;
+  int Stage2ShotCount = 0;
+  int Stage3ShotCount = 0;
+  int Stage4ShotCount = 0;
+
   void Start()
   {
+
     rb = GetComponent<Rigidbody>();
 
     Debug.Log(transform.forward);
     UpdateScoreText();
     CameraControlle();
     nextStageText.gameObject.SetActive(false);
-    audioSource = GetComponent<AudioSource>();//音の取得をしてる
+    audioSource = GetComponent<AudioSource>();//音の取得をして
+    GameObject camera = GameObject.Find("Main Camera");
+    camera.transform.position = new Vector3(148, 25, -62);
   }
   void CameraControlle()
   {
@@ -95,8 +105,9 @@ public class putter : MonoBehaviour
 
     }
     // ボールが動いている時に速度をログに出力
-    if (move && first)
+    if (move && first && check)
     {
+      check = false;
       Debug.Log("magnitude: " + rb.velocity.magnitude);
       if (94 > this.transform.position.x)
       {
@@ -104,13 +115,13 @@ public class putter : MonoBehaviour
         camera.transform.position = new Vector3(106, 24, -61);
         first = false;
       }
-      else
-      {
-        // GameObject camera = GameObject.Find("Main Camera");  
-        // camera.transform.position = new Vector3(148, 25, -61);
-      }
-    }
 
+    }
+    if (!first && (94 <= this.transform.position.x))
+    {
+      GameObject camera = GameObject.Find("Main Camera");
+      camera.transform.position = new Vector3(148, 25, -62);
+    }
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
     if (!move && rb.velocity.magnitude > 0)
     {
@@ -191,6 +202,7 @@ public class putter : MonoBehaviour
     nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
     isSceneSwitching = false;
     cameraPermission = true;
+
   }
   void UpdateScoreText()
   {
@@ -238,18 +250,24 @@ public class putter : MonoBehaviour
     {
       if (SceneManager.GetActiveScene().name == "4ndStage")
       {
+
         NextScenename = "Clear";
       }
       else if (SceneManager.GetActiveScene().name == "1ndStage")
       {
+
         NextScenename = "2ndStage";
+        // NextScenename = "Clear";
       }
       else if (SceneManager.GetActiveScene().name == "2ndStage")
       {
-        NextScenename = "3ndStage";
+
+        NextScenename = "Clear";
+        // NextScenename = "3ndStage";
       }
       else if (SceneManager.GetActiveScene().name == "3ndStage")
       {
+
         NextScenename = "4ndStage";
       }
       cameraPermission = false;
