@@ -262,8 +262,8 @@ public class putter : MonoBehaviour
       else if (SceneManager.GetActiveScene().name == "2ndStage")
       {
 
-        NextScenename = "Clear";
-        // NextScenename = "3ndStage";
+        // NextScenename = "Clear";
+        NextScenename = "3ndStage";
       }
       else if (SceneManager.GetActiveScene().name == "3ndStage")
       {
