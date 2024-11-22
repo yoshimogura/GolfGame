@@ -214,8 +214,24 @@ public class putter : MonoBehaviour
   {
     if (collision.gameObject.name == "池の判定")
     {
-      string LoadSceneName = SceneManager.GetActiveScene().name;
-      SceneManager.LoadScene(name);
+      if (SceneManager.GetActiveScene().name == "1ndStage")
+      {
+        SceneManager.LoadScene("1ndStage");
+      }
+      else
+      if (SceneManager.GetActiveScene().name == "2ndStage")
+      {
+        SceneManager.LoadScene("2ndStage");
+      }
+      else
+      if (SceneManager.GetActiveScene().name == "3ndStage")
+      {
+        SceneManager.LoadScene("3ndStage");
+      }
+      else
+      {
+        SceneManager.LoadScene("4ndStage");
+      }
     }
     //穴に入った判定
     if (collision.gameObject.name == "HollDetection" && !Cupin)
