@@ -51,15 +51,16 @@ public class putter : MonoBehaviour
   Plane plane = new Plane();
   float distance = 0;
   private bool isOnSlope = false;
+  bool Cupin = false;
   public AudioClip sound1;//音
   AudioSource audioSource;//音
+  public ChangeImage imageSwitcher;
   void Start()
   {
     rb = GetComponent<Rigidbody>();
 
     Debug.Log(transform.forward);
     UpdateScoreText();
-    UpdateShotText();
     CameraControlle();
     nextStageText.gameObject.SetActive(false);
     audioSource = GetComponent<AudioSource>();//音の取得をしてる
@@ -119,20 +120,20 @@ public class putter : MonoBehaviour
     }
 
     // 速度監視が開始されている場合、速度を監視する
-    if (move && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope)
+    if (move && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope && !Cupin)
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
 
       rb.velocity = Vector3.zero;
       rb.angularVelocity = Vector3.zero;
+      imageSwitcher.SwitchImage();
 
       // Rigidbodyの物理演算を停止して完全に静止させる
       rb.isKinematic = true;
       move = false;
       addForce = false;
       shot = false;
-      UpdateShotText();
       // CameraControllerスクリプトを取得
       CameraController cameraController = cameraObject.GetComponent<CameraController>();
 
@@ -164,6 +165,7 @@ public class putter : MonoBehaviour
         var lookPoint = ray.GetPoint(distance);
         transform.LookAt(lookPoint);
       }
+      imageSwitcher.SwitchImage();
       //その方向に力を加える
       Debug.Log("space key down");
       rb.isKinematic = false;
@@ -173,7 +175,6 @@ public class putter : MonoBehaviour
       shotcount = shotcount + 1;
       UpdateScoreText();
       shot = true;
-      UpdateShotText();
 
     }
 
@@ -182,6 +183,7 @@ public class putter : MonoBehaviour
   {
     audioSource.PlayOneShot(sound1);
     isSceneSwitching = true; nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
+    Cupin = true;
     yield return new WaitForSeconds(displayDuration); // 指定時間待機
     PlayerPrefs.SetInt("TotalShot", shotcount);
     PlayerPrefs.Save();
@@ -193,7 +195,7 @@ public class putter : MonoBehaviour
   void UpdateScoreText()
   {
     // スコアをテキストに反映
-    scoreText.text = "打った回数: " + shotcount;
+    scoreText.text = shotcount.ToString();
   }
   void UpdateShotText()
   {
