@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class ClearText : MonoBehaviour
 {
-    public Text Totaltext;
-    public Text commnent;
+    public TextMeshProUGUI Totaltext;
+    public TextMeshProUGUI commnent;
     // public GUIText originalText; // オリジナルのテキスト 
     // public Color outlineColor = Color.black; // 縁取りの色 
     // public Vector2 outlineOffset = new Vector2(1, 1); // 縁取りのオフセット
