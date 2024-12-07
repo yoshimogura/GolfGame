@@ -34,7 +34,7 @@ public class putter : MonoBehaviour
   //ショットの数
   public static int shotcount = 0;
 
-  public Text scoreText; // スコアを表示するText（Legacy）
+  public TextMeshProUGUI scoreText; // スコアを表示するText（Legacy）
   public Text shotText; // 打てるかどうかを表すText（Legacy）
 
   bool shot = false;
@@ -181,14 +181,12 @@ public class putter : MonoBehaviour
       Debug.Log("space key down");
       rb.isKinematic = false;
       rb.AddForce(transform.forward * (shotPower / 12), ForceMode.Impulse);
-      GetComponent<AudioSource>().Play();//音
+      //音
       addForce = true;
       shotcount = shotcount + 1;
       UpdateScoreText();
       shot = true;
-
     }
-
   }
   IEnumerator SwitchScene()
   {

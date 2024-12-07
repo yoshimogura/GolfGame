@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4180266016200805928}
   - component: {fileID: 1057148243143238313}
   m_Layer: 0
-  m_Name: "\u30D4\u30F3"
+  m_Name: Pin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

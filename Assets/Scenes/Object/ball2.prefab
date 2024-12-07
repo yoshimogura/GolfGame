@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3539407181324418732, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Name
-      value: "\u30DC\u30FC\u30EB\uFF081) Variant"
+      value: ball2
       objectReference: {fileID: 0}
     - target: {fileID: 6840163407096690941, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Material
@@ -55,6 +55,46 @@ PrefabInstance:
     - target: {fileID: 7722202703524629763, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: cup
+      value: 
+      objectReference: {fileID: 2712960031265704599, guid: 2549cb0a1d3073e48835cf70edd5169e, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: sound1
+      value: 
+      objectReference: {fileID: 8300000, guid: eb5f7bfce7343124a93e956860ba7d87, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: addForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: shotText
+      value: 
+      objectReference: {fileID: 5799095788954410155, guid: fadc03cdb283a354ebbc4dff8d4d6c10, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: powerText
+      value: 
+      objectReference: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 2309413716783871153, guid: 3013b816b2b98fa4e96b107226303421, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: cameraObject
+      value: 
+      objectReference: {fileID: 6162443604739237747, guid: a250b9443cf951e439317a1186518cc5, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: imageSwitcher
+      value: 
+      objectReference: {fileID: 3820986029104756626, guid: 43db79e2c580dfa4dbfc182f1e9f9a22, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: nextStageText
+      value: 
+      objectReference: {fileID: 6510934544411168304, guid: ff6a2ecf52efb834cbe29191873248ae, type: 3}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: stopSpeedThreshold
+      value: 0.47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

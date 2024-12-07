@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2807223388728855517}
   - component: {fileID: 4266659713004275540}
   m_Layer: 5
-  m_Name: shotPower
+  m_Name: ShotPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

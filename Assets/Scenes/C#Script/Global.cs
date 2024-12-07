@@ -8,16 +8,23 @@ public class clone : MonoBehaviour
     public GameObject objectToClone;
     public GameObject objectToClone2;
     public GameObject objectToClone3;
+    public GameObject ball;
     int numberOfClones = 10; // 生成するクローンの数
     float yPosition = 17f; // Y座標の位置
     float zPosition = -75f; // Z座標の位置
 
-
+    public Vector3 spawnPosition;
     void Start()
     {
 
-        GenerateClones();
+        SpanBall(spawnPosition);
 
+
+
+    }
+    void SpanBall(Vector3 position)
+    {
+        Instantiate(ball, position, Quaternion.identity);
     }
     void Update()
     {
@@ -26,6 +33,7 @@ public class clone : MonoBehaviour
 
     void GenerateClones()
     {
+        GetComponent<AudioSource>().Play();
         for (int i = 0; i < numberOfClones; i++)
         {
             // X座標

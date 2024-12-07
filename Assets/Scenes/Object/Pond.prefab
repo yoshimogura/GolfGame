@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4430035429425214772}
   - component: {fileID: 9012325319443485160}
   m_Layer: 0
-  m_Name: "\u6C60\u306E\u5224\u5B9A"
+  m_Name: Pond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

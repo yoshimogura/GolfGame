@@ -6677,7 +6677,7 @@ GameObject:
   - component: {fileID: 1002759959}
   - component: {fileID: 1002759958}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8062,7 +8062,7 @@ GameObject:
   - component: {fileID: 1283071436}
   - component: {fileID: 1283071435}
   m_Layer: 0
-  m_Name: "\u5168\u4F53\u306E\u58C1"
+  m_Name: While Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14674,7 +14674,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3539407181324418732, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Name
-      value: "\u30DC\u30FC\u30EB\uFF081)"
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 6840163407096690941, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Material
@@ -17691,7 +17691,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 108708270889312977, guid: 3c81a86e5dda4154fb8dc1ec3ff7ecc8, type: 3}
       propertyPath: m_Name
-      value: "\u6C60\u306E\u5224\u5B9A"
+      value: Pond
       objectReference: {fileID: 0}
     - target: {fileID: 1544202241216770957, guid: 3c81a86e5dda4154fb8dc1ec3ff7ecc8, type: 3}
       propertyPath: m_LocalPosition.x
