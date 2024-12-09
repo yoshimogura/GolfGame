@@ -47,3 +47,8 @@ MonoBehaviour:
   objectToClone: {fileID: 2592417024189566739, guid: c0f8615c25df6dd4faf320818b391d93, type: 3}
   objectToClone2: {fileID: 2592417024189566739, guid: 07c685f5ff67a9c4b975264dc6872fbc, type: 3}
   objectToClone3: {fileID: 2592417024189566739, guid: 071e406d5f0cf1c4794940cc69e8c72f, type: 3}
+  ball: {fileID: 0}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  ballPrefab: {fileID: 6865477073110747031, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
+  powerText: {fileID: 0}
+  maxShotPower: 100

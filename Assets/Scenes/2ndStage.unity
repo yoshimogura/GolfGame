@@ -2941,6 +2941,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6865477073110747031, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
     - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
+      propertyPath: powerText
+      value: 
+      objectReference: {fileID: 783327561}
+    - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
       propertyPath: objectToClone2
       value: 
       objectReference: {fileID: 2592417024189566739, guid: 07c685f5ff67a9c4b975264dc6872fbc, type: 3}
@@ -2948,6 +2952,18 @@ PrefabInstance:
       propertyPath: objectToClone3
       value: 
       objectReference: {fileID: 2592417024189566739, guid: 071e406d5f0cf1c4794940cc69e8c72f, type: 3}
+    - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
+      propertyPath: spawnPosition.x
+      value: 133
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
+      propertyPath: spawnPosition.y
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
+      propertyPath: spawnPosition.z
+      value: -62
+      objectReference: {fileID: 0}
     - target: {fileID: 6562662902354649420, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
       propertyPath: m_Name
       value: Global
@@ -3939,6 +3955,10 @@ PrefabInstance:
     - target: {fileID: 421934968793478769, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
       propertyPath: m_Name
       value: shotPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
+      propertyPath: m_text
+      value: aaaaa
       objectReference: {fileID: 0}
     - target: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
       propertyPath: m_fontSize
@@ -7138,6 +7158,10 @@ PrefabInstance:
     - target: {fileID: 3539407181324418732, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Name
       value: "\u30DC\u30FC\u30EB\uFF081)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3539407181324418732, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6840163407096690941, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Material

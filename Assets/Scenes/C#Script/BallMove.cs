@@ -14,7 +14,10 @@ public class putter : MonoBehaviour
   public float forceAmount = 3f; // ボールに与える力の量
 
 
-  private Rigidbody rb;
+  // private Rigidbody rb;              /////////////////////
+
+
+
   // Start is called before the first frame update
 
 
@@ -61,7 +64,7 @@ public class putter : MonoBehaviour
   int Stage2ShotCount = 0;
   int Stage3ShotCount = 0;
   int Stage4ShotCount = 0;
-
+  public Rigidbody rb;
   void Start()
   {
 
@@ -90,33 +93,35 @@ public class putter : MonoBehaviour
   void Update()
   {
     // マウスからレイを飛ばして衝突地点を取得
-    Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    RaycastHit hit;
+    // Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    // RaycastHit hit;
 
-    if (Physics.Raycast(Powerray, out hit))
-    {
-      // 衝突地点とボールの位置から距離と方向を計算
-      Vector3 hitPosition = hit.point;
-      shotDirection = (hitPosition - this.transform.position).normalized;
-      shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
+    // if (Physics.Raycast(Powerray, out hit))
+    // {
+    //   // 衝突地点とボールの位置から距離と方向を計算
+    //   Vector3 hitPosition = hit.point;
+    //   shotDirection = (hitPosition - this.transform.position).normalized;
+    //   shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
 
-      // UIに現在のショット強さを表示
-      powerText.text = $"Power: {shotPower * 2.5:F1}";
+    //   // UIに現在のショット強さを表示
 
-    }
-    // ボールが動いている時に速度をログに出力
-    if (move && first && check)
-    {
-      check = false;
-      Debug.Log("magnitude: " + rb.velocity.magnitude);
-      if (94 > this.transform.position.x)
-      {
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.position = new Vector3(106, 24, -61);
-        first = false;
-      }
+    //   powerText.text = $"Power: {shotPower * 2.5:F1}";
+    //   // Debug.Log("kitaze");
 
-    }
+    // }
+    // // ボールが動いている時に速度をログに出力
+    // if (move && first && check)
+    // {
+    //   check = false;
+    //   Debug.Log("magnitude: " + rb.velocity.magnitude);
+    //   if (94 > this.transform.position.x)
+    //   {
+    //     GameObject camera = GameObject.Find("Main Camera");
+    //     camera.transform.position = new Vector3(106, 24, -61);
+    //     first = false;
+    //   }
+
+    // }
     if (!first && (94 <= this.transform.position.x))
     {
       GameObject camera = GameObject.Find("Main Camera");
@@ -156,6 +161,7 @@ public class putter : MonoBehaviour
         newCameraPosition.y += 12f;
 
         cameraController.SetPosition(newCameraPosition, cup);
+        Debug.Log("kita");
       }
       // else
       // {
@@ -206,19 +212,6 @@ public class putter : MonoBehaviour
   {
     // スコアをテキストに反映
     scoreText.text = shotcount.ToString();
-  }
-  void UpdateShotText()
-  {
-    if (shot)
-    {
-      shotText.text = "移動中...";
-    }
-    else
-    {
-      shotText.text = "停止中";
-    }
-    // スコアをテキストに反映
-
   }
   void OnCollisionEnter(Collision collision)
   {

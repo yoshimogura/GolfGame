@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class clone : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class clone : MonoBehaviour
     float zPosition = -75f; // Z座標の位置
 
     public Vector3 spawnPosition;
+    public GameObject ballPrefab;
+    public TextMeshProUGUI powerText;
+    public float maxShotPower = 100f;
+    private Vector3 shotDirection;
+    private float shotPower;
     void Start()
     {
 
@@ -24,10 +30,28 @@ public class clone : MonoBehaviour
     }
     void SpanBall(Vector3 position)
     {
-        Instantiate(ball, position, Quaternion.identity);
+        // Instantiate(ball, position, Quaternion.identity);
+        GameObject ballInstance = Instantiate(ball, new Vector3(0, 0, 0), Quaternion.identity);
     }
     void Update()
     {
+
+        Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit; if (Physics.Raycast(Powerray, out hit))
+        {
+            Vector3 hitPosition = hit.point; // ボールを生成 
+            GameObject ballInstance = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+            // ボールの位置と衝突地点から方向とショットパワーを計算 
+            shotDirection = (hitPosition - ballInstance.transform.position).normalized;
+            shotPower = Mathf.Clamp(Vector3.Distance(ballInstance.transform.position, hitPosition), 0, maxShotPower);
+            // UIに現在のショット強さを表示 
+            powerText.text = $"Power: {shotPower * 2.5:F1}"; // Rigidbodyを使って力を加える 
+            putter ball = ballInstance.GetComponent<putter>();
+            if (ball != null && ball.rb != null)
+            {
+                ball.rb.AddForce(shotDirection * shotPower, ForceMode.Impulse);
+            }
+        }
 
     }
 
