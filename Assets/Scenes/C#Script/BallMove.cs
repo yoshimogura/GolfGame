@@ -163,10 +163,6 @@ public class putter : MonoBehaviour
         cameraController.SetPosition(newCameraPosition, cup);
         Debug.Log("kita");
       }
-      // else
-      // {
-      //     Debug.LogError("CameraControllerが見つかりません。もしくはcameraPermissionがfalseです");
-      // }
     }
     //打つ
     if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)

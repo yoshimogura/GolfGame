@@ -7,7 +7,7 @@ public class TextManager : MonoBehaviour
 {
     public Text scoreText; // スコアを表示するText（Legacy）
     private int score = 0; // 初期スコア
-                           // Start is called before the first frame update
+    // Start is called before the first frame update
 
     void Start()
     {
