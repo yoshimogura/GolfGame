@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using TMPro;
 using System;
-public class putter : MonoBehaviour
+public class BallMove : MonoBehaviour
 {
 
   public float forceAmount = 3f; // ボールに与える力の量

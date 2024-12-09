@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class clone : MonoBehaviour
+public class Global : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject objectToClone;
@@ -23,14 +23,16 @@ public class clone : MonoBehaviour
     void Start()
     {
 
-        SpanBall(spawnPosition);
+        SpawnBall(spawnPosition);
 
 
     }
-    void SpanBall(Vector3 position)
+    void SpawnBall(Vector3 position)
     {
-        Instantiate(ball, position, Quaternion.identity);
-        GameObject ballInstance = Instantiate(ball, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject ballObj = Instantiate(ball, position, Quaternion.identity);
+
+        ballObj.AddComponent<BallMove>();
+        // Instantiate(ball, new Vector3(0, 0, 0), Quaternion.identity);
     }
     void Update()
     {
