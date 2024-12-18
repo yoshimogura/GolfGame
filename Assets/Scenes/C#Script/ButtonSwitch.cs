@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 
 
-public class Button : MonoBehaviour
+public class ButtonSwitch : MonoBehaviour
 {
     public string sceneName = "";
-    void Update(){
-        if (Input.GetKeyDown(KeyCode.Space)){
-        SceneManager.LoadScene(sceneName);
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
