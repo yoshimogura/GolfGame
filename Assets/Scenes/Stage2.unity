@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 202898299}
   - component: {fileID: 202898298}
   m_Layer: 0
-  m_Name: "\u5168\u4F53\u7BB1"
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2234,8 +2234,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc39ef502044bc74fba6aef903892ca9, type: 2}
-  m_sharedMaterial: {fileID: 5457506813713843793, guid: dc39ef502044bc74fba6aef903892ca9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4101,7 +4101,7 @@ PrefabInstance:
     - target: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: e329c133d78c3334bbafe2cc7e9ee387, type: 2}
     - target: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
       propertyPath: m_fontSizeBase
       value: 18
@@ -4109,7 +4109,7 @@ PrefabInstance:
     - target: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -2830737805831008747, guid: e329c133d78c3334bbafe2cc7e9ee387, type: 2}
     - target: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0

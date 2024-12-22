@@ -1533,7 +1533,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6131291308517657899, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 892781356}
     - targetCorrespondingSourceObject: {fileID: 6131291308517657899, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
       insertIndex: -1
@@ -1543,17 +1543,6 @@ PrefabInstance:
       addedObject: {fileID: 794199003}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
---- !u!114 &271885766 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4372126760449045416, guid: c2ed7d3583085c8469d64609e38e16bf, type: 3}
-  m_PrefabInstance: {fileID: 271885765}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &274097295
 GameObject:
   m_ObjectHideFlags: 0
@@ -12783,7 +12772,7 @@ GameObject:
   - component: {fileID: 1902377467}
   - component: {fileID: 1902377466}
   m_Layer: 0
-  m_Name: "\u58C1"
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14601,7 +14590,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 108708270889312977, guid: 3c81a86e5dda4154fb8dc1ec3ff7ecc8, type: 3}
       propertyPath: m_Name
-      value: "\u6C60\u306E\u5224\u5B9A"
+      value: Pond
       objectReference: {fileID: 0}
     - target: {fileID: 1544202241216770957, guid: 3c81a86e5dda4154fb8dc1ec3ff7ecc8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17362,7 +17351,7 @@ PrefabInstance:
     - target: {fileID: 1384510926008384143, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 271885766}
+      objectReference: {fileID: 0}
     - target: {fileID: 1384510926008384143, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
       propertyPath: mainCamera
       value: 
@@ -17385,7 +17374,7 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 95e020386ecb5814799dc2b586fe48dd, type: 2}
     - target: {fileID: 6865477073110747031, guid: 0359bb549091cf041a1aaa2841843044, type: 3}
       propertyPath: m_Name
-      value: "\u30DC\u30FC\u30EB\uFF081)"
+      value: ball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

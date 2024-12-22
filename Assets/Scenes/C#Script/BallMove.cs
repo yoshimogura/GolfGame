@@ -213,49 +213,49 @@ public class BallMove : MonoBehaviour
   {
     if (collision.gameObject.name == "池の判定")
     {
-      if (SceneManager.GetActiveScene().name == "1ndStage")
+      if (SceneManager.GetActiveScene().name == "Stage1")
       {
-        SceneManager.LoadScene("1ndStage");
+        SceneManager.LoadScene("Stage1");
       }
       else
-      if (SceneManager.GetActiveScene().name == "2ndStage")
+      if (SceneManager.GetActiveScene().name == "Stage2")
       {
-        SceneManager.LoadScene("2ndStage");
+        SceneManager.LoadScene("Stage2");
       }
       else
-      if (SceneManager.GetActiveScene().name == "3ndStage")
+      if (SceneManager.GetActiveScene().name == "Stage3")
       {
-        SceneManager.LoadScene("3ndStage");
+        SceneManager.LoadScene("Stage3");
       }
       else
       {
-        SceneManager.LoadScene("4ndStage");
+        SceneManager.LoadScene("Stage4");
       }
     }
     //穴に入った判定
     if (collision.gameObject.name == "HollDetection" && !Cupin)
     {
-      if (SceneManager.GetActiveScene().name == "4ndStage")
+      if (SceneManager.GetActiveScene().name == "Stage4")
       {
 
         NextScenename = "Clear";
       }
-      else if (SceneManager.GetActiveScene().name == "1ndStage")
+      else if (SceneManager.GetActiveScene().name == "Stage1")
       {
 
-        NextScenename = "2ndStage";
+        NextScenename = "Stage2";
         // NextScenename = "Clear";
       }
-      else if (SceneManager.GetActiveScene().name == "2ndStage")
+      else if (SceneManager.GetActiveScene().name == "Stage2")
       {
 
         // NextScenename = "Clear";
-        NextScenename = "3ndStage";
+        NextScenename = "Stage3";
       }
-      else if (SceneManager.GetActiveScene().name == "3ndStage")
+      else if (SceneManager.GetActiveScene().name == "Stage3")
       {
 
-        NextScenename = "4ndStage";
+        NextScenename = "Stage4";
       }
       cameraPermission = false;
       StartCoroutine(SwitchScene());
