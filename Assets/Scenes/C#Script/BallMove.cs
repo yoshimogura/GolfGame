@@ -12,12 +12,6 @@ public class BallMove : MonoBehaviour
 {
 
   public float forceAmount = 3f; // ボールに与える力の量
-
-
-  // private Rigidbody rb; 
-
-
-
   public bool first = true;
   public float startMonitoringSpeed = 0.8f;
   // スピードが停止したと判断する閾値
@@ -30,28 +24,16 @@ public class BallMove : MonoBehaviour
 
   private Vector3 shotDirection;       // ショットの方向
   private float shotPower;             // 現在のショット強さ
-                                       //ショットの数
-
-
-
   public Text shotText; // 打てるかどうかを表すText（Legacy）
 
   bool shot = false;
 
   public float distanceFromBall = 11f; // ボールからカメラをどれだけ離すか
-
-
   string NextScenename = "";
-
-
-
-
   Plane plane = new Plane();
   float distance = 0;
   private bool isOnSlope = false;
   public bool Cupin = false;
-
-
   bool check = true;
   public Rigidbody rb;
   private Global globalScript;
@@ -72,10 +54,7 @@ public class BallMove : MonoBehaviour
     }
     globalScript.ChangeCamera();
     rb = GetComponent<Rigidbody>();
-
     Debug.Log(transform.forward);
-
-
   }
 
   void OnCollisionStay(Collision collision)

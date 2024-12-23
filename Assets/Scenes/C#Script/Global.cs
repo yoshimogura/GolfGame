@@ -130,10 +130,7 @@ public class Global : MonoBehaviour
         powerText.text = $"Power: {shotPower * 5:F1}";
     }
 
-    void UpdateScoreText()
-    {
 
-    }
     void GenerateClones()
     {
         GetComponent<AudioSource>().Play();
