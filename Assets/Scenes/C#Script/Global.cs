@@ -35,7 +35,7 @@ public class Global : MonoBehaviour
     public Transform cup;
     public int shotcount = 0;
     float displayDuration = 3f; // テキスト表示時間 
-    private Vector3 targetObject;
+
     public Transform cameraTransform;
     public Vector3 cameraOffset = new Vector3(10, 20, 0);
     void Start()
@@ -48,7 +48,7 @@ public class Global : MonoBehaviour
         // camera.transform.position = new Vector3(148, 25, -62);
         GameObject ballMoveObject = GameObject.FindWithTag("BallMoveObject");
         ballMoveScript = ballMoveObject.GetComponent<BallMove>();
-        GameObject targetObject = GameObject.FindWithTag("BallMoveObject");
+
 
     }
     void SpawnBall(Vector3 position)
@@ -75,6 +75,8 @@ public class Global : MonoBehaviour
 
         if (Physics.Raycast(Powerray, out hit))
         {
+            GameObject ball = GameObject.FindWithTag("BallMoveObject");
+            Vector3 targetObject = ball.transform.position;
             // 衝突地点とボールの位置から距離と方向を計算
             Vector3 hitPosition = hit.point;
             shotDirection = (hitPosition - targetObject).normalized;
