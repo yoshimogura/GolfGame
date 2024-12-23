@@ -93,6 +93,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6510934544411168304, guid: ff6a2ecf52efb834cbe29191873248ae, type: 3}
     - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: distanceFromBall
+      value: 10.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: stopSpeedThreshold
       value: 0.47
       objectReference: {fileID: 0}

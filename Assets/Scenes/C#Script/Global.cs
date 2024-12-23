@@ -49,23 +49,6 @@ public class Global : MonoBehaviour
     void Update()
     {
 
-        // Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // RaycastHit hit; if (Physics.Raycast(Powerray, out hit))
-        // {
-        //     Vector3 hitPosition = hit.point; // ボールを生成 
-        //     GameObject ballInstance = Instantiate(ballPrefab, transform.position, Quaternion.identity);
-
-        //     shotDirection = (hitPosition - ballInstance.transform.position).normalized;
-        //     shotPower = Mathf.Clamp(Vector3.Distance(ballInstance.transform.position, hitPosition), 0, maxShotPower);
-        //     // UIに現在のショット強さを表示 
-        //     powerText.text = $"Power: {shotPower * 2.5:F1}"; // Rigidbodyを使って力を加える 
-        //     putter ball = ballInstance.GetComponent<putter>();
-        //     if (ball != null && ball.rb != null)
-        //     {
-        //         ball.rb.AddForce(shotDirection * shotPower, ForceMode.Impulse);
-        //     }
-        // }
-
         Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -104,6 +87,10 @@ public class Global : MonoBehaviour
     }
 
     // ボールが動いている時に速度をログに出力
+    public void SwitchShotPower(float shotPower)
+    {
+        powerText.text = $"Power: {shotPower * 2.5:F1}";
+    }
     void UpdateScoreText()
     {
 
