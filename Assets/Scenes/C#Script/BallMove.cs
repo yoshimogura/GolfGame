@@ -31,13 +31,13 @@ public class BallMove : MonoBehaviour
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   public bool addForce = false;
   float maxShotPower = 40f;     // 最大のショット強さ
-  public TextMeshProUGUI powerText;
+
   private Vector3 shotDirection;       // ショットの方向
   private float shotPower;             // 現在のショット強さ
   //ショットの数
   public static int shotcount = 0;
 
-  public TextMeshProUGUI scoreText; // スコアを表示するText（Legacy）
+
   public Text shotText; // 打てるかどうかを表すText（Legacy）
 
   bool shot = false;
@@ -48,7 +48,7 @@ public class BallMove : MonoBehaviour
 
 
   string NextScenename = "";
-  public TextMeshProUGUI nextStageText; // "Next Stage"テキスト用のUI Text 
+
   float displayDuration = 3f; // テキスト表示時間 
   private bool isSceneSwitching = true;
   bool cameraPermission = true;
@@ -56,27 +56,36 @@ public class BallMove : MonoBehaviour
   float distance = 0;
   private bool isOnSlope = false;
   bool Cupin = false;
-  public AudioClip sound1;//音
-  AudioSource audioSource;//音
-  public ChangeImage imageSwitcher;
+
+
   bool check = true;
   int Stage1ShotCount = 0;
   int Stage2ShotCount = 0;
   int Stage3ShotCount = 0;
   int Stage4ShotCount = 0;
   public Rigidbody rb;
+  private Global globalScript;
   void Start()
   {
-
+    GameObject globalObject = GameObject.Find("Global");
+    if (globalObject != null)
+    {
+      globalScript = globalObject.GetComponent<Global>();
+      if (globalScript == null)
+      {
+        Debug.LogError("Global script is not attached to the Global object!");
+      }
+    }
+    else
+    {
+      Debug.LogError("Global object not found!");
+    }
     rb = GetComponent<Rigidbody>();
 
     Debug.Log(transform.forward);
-    UpdateScoreText();
+
     CameraControlle();
-    nextStageText.gameObject.SetActive(false);
-    audioSource = GetComponent<AudioSource>();//音の取得をして
-    GameObject camera = GameObject.Find("Main Camera");
-    camera.transform.position = new Vector3(148, 25, -62);
+
   }
   void CameraControlle()
   {
@@ -143,7 +152,7 @@ public class BallMove : MonoBehaviour
 
       rb.velocity = Vector3.zero;
       rb.angularVelocity = Vector3.zero;
-      imageSwitcher.SwitchImage();
+      globalScript.SwitchImage();
 
       // Rigidbodyの物理演算を停止して完全に静止させる
       rb.isKinematic = true;
@@ -178,7 +187,7 @@ public class BallMove : MonoBehaviour
         var lookPoint = ray.GetPoint(distance);
         transform.LookAt(lookPoint);
       }
-      imageSwitcher.SwitchImage();
+      globalScript.SwitchImage();
       //その方向に力を加える
       Debug.Log("space key down");
       rb.isKinematic = false;
@@ -186,32 +195,15 @@ public class BallMove : MonoBehaviour
       //音
       addForce = true;
       shotcount = shotcount + 1;
-      UpdateScoreText();
+
       shot = true;
     }
   }
-  IEnumerator SwitchScene()
-  {
-    audioSource.PlayOneShot(sound1);
-    isSceneSwitching = true; nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
-    Cupin = true;
-    yield return new WaitForSeconds(displayDuration); // 指定時間待機
-    PlayerPrefs.SetInt("TotalShot", shotcount);
-    PlayerPrefs.Save();
-    SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
-    nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
-    isSceneSwitching = false;
-    cameraPermission = true;
 
-  }
-  void UpdateScoreText()
-  {
-    // スコアをテキストに反映
-    scoreText.text = shotcount.ToString();
-  }
+
   void OnCollisionEnter(Collision collision)
   {
-    if (collision.gameObject.name == "池の判定")
+    if (collision.gameObject.name == "Pond")
     {
       if (SceneManager.GetActiveScene().name == "Stage1")
       {
@@ -258,7 +250,7 @@ public class BallMove : MonoBehaviour
         NextScenename = "Stage4";
       }
       cameraPermission = false;
-      StartCoroutine(SwitchScene());
+      globalScript.SwitchScene();
     }
   }
 }

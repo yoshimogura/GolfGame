@@ -14,7 +14,15 @@ public class ChangeImage : MonoBehaviour
     }
     public void SwitchImage()
     { // 画像を切り替える 
-        if (isFirstImage && sprite2 != null) { targetImage.sprite = sprite2; } else if (sprite1 != null) { targetImage.sprite = sprite1; }
+        if (isFirstImage && sprite2 != null)
+        {
+            targetImage.sprite = sprite2;
+        }
+        else if (sprite1 != null)
+        {
+            targetImage.sprite = sprite1;
+        }
+
         isFirstImage = !isFirstImage; // 状態を切り替える }
     }
 }

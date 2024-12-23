@@ -75,11 +75,11 @@ PrefabInstance:
     - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: powerText
       value: 
-      objectReference: {fileID: 4266659713004275540, guid: c1a762f45235d754385d7e52b8c3c5b6, type: 3}
+      objectReference: {fileID: 9061704090398484424, guid: ab6a9637e8547fc46be2739033952c96, type: 3}
     - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 2309413716783871153, guid: 3013b816b2b98fa4e96b107226303421, type: 3}
+      objectReference: {fileID: 2781101394777714873, guid: 64663ac8477502b4486bb7835e94afc4, type: 3}
     - target: {fileID: 9038537860742136756, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: cameraObject
       value: 
