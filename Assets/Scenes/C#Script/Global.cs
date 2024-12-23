@@ -28,6 +28,16 @@ public class Global : MonoBehaviour
     public TextMeshProUGUI nextStageText; // "Next Stage"テキスト用のUI Text 
     public TextMeshProUGUI powerText;
     public ChangeImage imageSwitcher;
+    private bool isSceneSwitching = true;
+    private BallMove ballMoveScript;
+    public bool cameraPermission = true;
+    public GameObject cameraObject;
+    public Transform cup;
+    public int shotcount = 0;
+    float displayDuration = 3f; // テキスト表示時間 
+    private Vector3 targetObject;
+    public Transform cameraTransform;
+    public Vector3 cameraOffset = new Vector3(10, 20, 0);
     void Start()
     {
 
@@ -35,8 +45,10 @@ public class Global : MonoBehaviour
         nextStageText.gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();//音の取得をして
         GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.position = new Vector3(148, 25, -62);
-
+        // camera.transform.position = new Vector3(148, 25, -62);
+        GameObject ballMoveObject = GameObject.FindWithTag("BallMoveObject");
+        ballMoveScript = ballMoveObject.GetComponent<BallMove>();
+        GameObject targetObject = GameObject.FindWithTag("BallMoveObject");
 
     }
     void SpawnBall(Vector3 position)
@@ -49,6 +61,15 @@ public class Global : MonoBehaviour
     void Update()
     {
 
+
+    }
+    public void ChangeShotcount()
+    {
+        ShotCountText.text = "Score:" + shotcount;
+    }
+    public void ChangeCamera()
+    {
+
         Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -56,28 +77,45 @@ public class Global : MonoBehaviour
         {
             // 衝突地点とボールの位置から距離と方向を計算
             Vector3 hitPosition = hit.point;
-            shotDirection = (hitPosition - this.transform.position).normalized;
-            shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
+            shotDirection = (hitPosition - targetObject).normalized;
+            shotPower = Mathf.Clamp(Vector3.Distance(targetObject, hitPosition), 0, maxShotPower);
 
             // UIに現在のショット強さを表示
 
             powerText.text = $"Power: {shotPower * 2.5:F1}";
             // Debug.Log("kitaze");
+            // CameraControllerスクリプトを取得
+            CameraController cameraController = cameraObject.GetComponent<CameraController>();
+
+
+            // カメラの位置を設定し、カップを向く
+            Vector3 direction = (cup.position - targetObject).normalized;
+            Vector3 newCameraPosition = targetObject - (direction * 16f); // 例としてカメラの新しい位置
+            newCameraPosition.y += 12f;
+            cameraController.SetPosition(newCameraPosition, cup);
+            Debug.Log("kita");
+
+            // ボールの後ろにカメラを移動 
+            // cameraTransform.position = targetObject + cameraOffset;
+
+            // カメラをfragオブジェクトに向ける 
 
         }
     }
     public void SwitchScene()
     {
-        //     audioSource.PlayOneShot(sound1);
-        //     isSceneSwitching = true; nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
-        //     Cupin = true;
-        //     yield return new WaitForSeconds(displayDuration); // 指定時間待機
-        //     PlayerPrefs.SetInt("TotalShot", shotcount);
-        //     PlayerPrefs.Save();
-        //     SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
-        //     nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
-        //     isSceneSwitching = false;
-        //     cameraPermission = true;
+        audioSource.PlayOneShot(sound1);
+        isSceneSwitching = true;
+        nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
+        ballMoveScript.Cupin = true;
+
+        // yield return new WaitForSeconds(displayDuration); // 指定時間待機
+        // PlayerPrefs.SetInt("TotalShot", shotcount);
+        // PlayerPrefs.Save();
+        // SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
+        // nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
+        // isSceneSwitching = false;
+        // cameraPermission = true;
         Debug.Log("OK");
 
     }
@@ -89,8 +127,9 @@ public class Global : MonoBehaviour
     // ボールが動いている時に速度をログに出力
     public void SwitchShotPower(float shotPower)
     {
-        powerText.text = $"Power: {shotPower * 2.5:F1}";
+        powerText.text = $"Power: {shotPower * 5:F1}";
     }
+
     void UpdateScoreText()
     {
 

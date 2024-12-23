@@ -26,39 +26,33 @@ public class BallMove : MonoBehaviour
   public bool move = false;
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   public bool addForce = false;
-  float maxShotPower = 40f;     // 最大のショット強さ
+  float maxShotPower = 20f;     // 最大のショット強さ
 
   private Vector3 shotDirection;       // ショットの方向
   private float shotPower;             // 現在のショット強さ
-  //ショットの数
-  public static int shotcount = 0;
+                                       //ショットの数
+
 
 
   public Text shotText; // 打てるかどうかを表すText（Legacy）
 
   bool shot = false;
-  public GameObject cameraObject;  // カメラオブジェクトをインスペクタで設定
-  public Transform cup;            // カップのTransform
 
   public float distanceFromBall = 11f; // ボールからカメラをどれだけ離すか
 
 
   string NextScenename = "";
 
-  float displayDuration = 3f; // テキスト表示時間 
-  private bool isSceneSwitching = true;
-  bool cameraPermission = true;
+
+
+
   Plane plane = new Plane();
   float distance = 0;
   private bool isOnSlope = false;
-  bool Cupin = false;
+  public bool Cupin = false;
 
 
   bool check = true;
-  int Stage1ShotCount = 0;
-  int Stage2ShotCount = 0;
-  int Stage3ShotCount = 0;
-  int Stage4ShotCount = 0;
   public Rigidbody rb;
   private Global globalScript;
   void Start()
@@ -76,17 +70,14 @@ public class BallMove : MonoBehaviour
     {
       Debug.LogError("Global object not found!");
     }
+    globalScript.ChangeCamera();
     rb = GetComponent<Rigidbody>();
 
     Debug.Log(transform.forward);
 
-    CameraControlle();
 
   }
-  void CameraControlle()
-  {
 
-  }
   void OnCollisionStay(Collision collision)
   { // "Slope"というタグを持つオブジェクトに触れているとき 
     if (collision.gameObject.CompareTag("slope")) { isOnSlope = true; }
@@ -129,7 +120,7 @@ public class BallMove : MonoBehaviour
     if (!first && (94 <= this.transform.position.x))
     {
       GameObject camera = GameObject.Find("Main Camera");
-      camera.transform.position = new Vector3(148, 25, -62);
+      // camera.transform.position = new Vector3(148, 25, -62);
     }
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
     if (!move && rb.velocity.magnitude > 0)
@@ -144,7 +135,7 @@ public class BallMove : MonoBehaviour
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
-
+      globalScript.ChangeCamera();//カメラの視点変更
       rb.velocity = Vector3.zero;
       rb.angularVelocity = Vector3.zero;
       globalScript.SwitchImage();
@@ -154,19 +145,7 @@ public class BallMove : MonoBehaviour
       move = false;
       addForce = false;
       shot = false;
-      // CameraControllerスクリプトを取得
-      CameraController cameraController = cameraObject.GetComponent<CameraController>();
 
-      if (cameraController != null && cameraPermission)
-      {
-        // カメラの位置を設定し、カップを向く
-        Vector3 direction = (cup.position - this.transform.position).normalized;
-        Vector3 newCameraPosition = this.transform.position - direction * 16f; // 例としてカメラの新しい位置
-        newCameraPosition.y += 12f;
-
-        cameraController.SetPosition(newCameraPosition, cup);
-        Debug.Log("kita");
-      }
     }
     //打つ
     if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)
@@ -191,7 +170,10 @@ public class BallMove : MonoBehaviour
 
       //音
       addForce = true;
-      shotcount = shotcount + 1;
+      Debug.Log("saaaa" + globalScript.shotcount);
+      globalScript.shotcount = globalScript.shotcount + 1;
+
+      globalScript.ChangeShotcount();
 
       shot = true;
     }
@@ -246,7 +228,7 @@ public class BallMove : MonoBehaviour
 
         NextScenename = "Stage4";
       }
-      cameraPermission = false;
+      globalScript.cameraPermission = false;
       globalScript.SwitchScene();
     }
   }

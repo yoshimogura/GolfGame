@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball2
       objectReference: {fileID: 0}
+    - target: {fileID: 3539407181324418732, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
+      propertyPath: m_TagString
+      value: BallMoveObject
+      objectReference: {fileID: 0}
     - target: {fileID: 6840163407096690941, guid: 193eda65f82d20d46a6da2bf1c13f53b, type: 3}
       propertyPath: m_Material
       value: 
