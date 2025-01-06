@@ -17,9 +17,8 @@ public class BallMove : MonoBehaviour
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ 
-  public bool move = false;
+  public bool ismoving = false;
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
-  public bool addForce = false;
   float maxShotPower = 20f;     // 最大のショット強さ
 
   private Vector3 shotDirection;       // ショットの方向
@@ -37,6 +36,8 @@ public class BallMove : MonoBehaviour
   bool check = true;
   public Rigidbody rb;
   private Global globalScript;
+  //坂の影響を考慮して、停止カウントが一定になった時に完全に停止したと判定する
+  private int stopcount = 0;
 
   void Start()
   {
@@ -87,7 +88,7 @@ public class BallMove : MonoBehaviour
       globalScript.SwitchShotPower(shotPower);
     }
     // ボールが動いている時に速度をログに出力
-    if (move && first && check)
+    if (ismoving && first && check)
     {
       check = false;
       Debug.Log("magnitude: " + rb.velocity.magnitude);
@@ -105,15 +106,15 @@ public class BallMove : MonoBehaviour
       // camera.transform.position = new Vector3(148, 25, -62);
     }
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
-    if (!move && rb.velocity.magnitude > 0)
+    if (!ismoving && rb.velocity.magnitude > 0)
     {
       Debug.Log("start move");
-      move = true; // 速度監視を開始
+      ismoving = true; // 速度監視を開始
 
     }
 
     // 速度監視が開始されている場合、速度を監視する
-    if (move && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope && !Cupin)
+    if (ismoving && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope && !Cupin)
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
@@ -124,13 +125,12 @@ public class BallMove : MonoBehaviour
 
       // Rigidbodyの物理演算を停止して完全に静止させる
       rb.isKinematic = true;
-      move = false;
-      addForce = false;
+      ismoving = false;
       shot = false;
 
     }
     //打つ
-    if (!move && Input.GetKeyDown(KeyCode.Space) && !addForce)
+    if (!ismoving && Input.GetKeyDown(KeyCode.Space))
     {
       //マウスの位置で方向を決定
       // カメラとマウスの位置を元にRayを準備
@@ -151,7 +151,7 @@ public class BallMove : MonoBehaviour
       Debug.Log(transform.forward * (shotPower / 12));
 
       //音
-      addForce = true;
+      ismoving = true;
 
 
       Debug.Log("StopBall");
