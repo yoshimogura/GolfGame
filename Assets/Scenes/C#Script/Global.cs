@@ -39,6 +39,7 @@ public class Global : MonoBehaviour
 
     public Transform cameraTransform;
     public Vector3 cameraOffset = new Vector3(10, 20, 0);
+    public string NextScenename = "";
     void Start()
     {
         GenerateClones();
@@ -106,9 +107,39 @@ public class Global : MonoBehaviour
 
         }
     }
+    public void ballFalling()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
     public void SwitchScene()
     {
-        ballMoveScript = ball.GetComponent<BallMove>();
+        if (SceneManager.GetActiveScene().name == "Stage4")
+        {
+
+            NextScenename = "Clear";
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage1")
+        {
+
+            NextScenename = "Stage2";
+            // NextScenename = "Clear";
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage2")
+        {
+
+            // NextScenename = "Clear";
+            NextScenename = "Stage3";
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage3")
+        {
+
+            NextScenename = "Stage4";
+        }
+        else
+        {
+            NextScenename = "NextSceneName";
+        }
         // audioSource.PlayOneShot(sound1);
         isSceneSwitching = true;
         nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
@@ -117,8 +148,8 @@ public class Global : MonoBehaviour
         PlayerPrefs.SetInt("TotalShot", shotcount);
         PlayerPrefs.Save();
 
-        Debug.Log(ballMoveScript.NextScenename);
-        SceneManager.LoadScene(ballMoveScript.NextScenename);// 次のシーンに移動 
+        Debug.Log(NextScenename);
+        SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
 
         nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
         isSceneSwitching = false;

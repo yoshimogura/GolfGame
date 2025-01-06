@@ -28,7 +28,7 @@ public class BallMove : MonoBehaviour
   bool shot = false;
 
   public float distanceFromBall = 11f; // ボールからカメラをどれだけ離すか
-  public string NextScenename = "";
+
   Plane plane = new Plane();
   float distance = 0;
   private bool isOnSlope = false;
@@ -166,54 +166,13 @@ public class BallMove : MonoBehaviour
   {
     if (collision.gameObject.name == "Pond")
     {
-      if (SceneManager.GetActiveScene().name == "Stage1")
-      {
-        SceneManager.LoadScene("Stage1");
-      }
-      else
-      if (SceneManager.GetActiveScene().name == "Stage2")
-      {
-        SceneManager.LoadScene("Stage2");
-      }
-      else
-      if (SceneManager.GetActiveScene().name == "Stage3")
-      {
-        SceneManager.LoadScene("Stage3");
-      }
-      else
-      {
-        SceneManager.LoadScene("Stage4");
-      }
+      globalScript.ballFalling();
+
     }
     //穴に入った判定
     if (collision.gameObject.name == "HollDetection" && !Cupin)
     {
-      if (SceneManager.GetActiveScene().name == "Stage4")
-      {
 
-        NextScenename = "Clear";
-      }
-      else if (SceneManager.GetActiveScene().name == "Stage1")
-      {
-
-        NextScenename = "Stage2";
-        // NextScenename = "Clear";
-      }
-      else if (SceneManager.GetActiveScene().name == "Stage2")
-      {
-
-        // NextScenename = "Clear";
-        NextScenename = "Stage3";
-      }
-      else if (SceneManager.GetActiveScene().name == "Stage3")
-      {
-
-        NextScenename = "Stage4";
-      }
-      else
-      {
-        NextScenename = "NextSceneName";
-      }
       globalScript.cameraPermission = false;
       globalScript.SwitchScene();
     }
