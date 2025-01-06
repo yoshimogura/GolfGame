@@ -29,7 +29,7 @@ public class BallMove : MonoBehaviour
   bool shot = false;
 
   public float distanceFromBall = 11f; // ボールからカメラをどれだけ離すか
-  string NextScenename = "";
+  public string NextScenename = "";
   Plane plane = new Plane();
   float distance = 0;
   private bool isOnSlope = false;
@@ -37,8 +37,10 @@ public class BallMove : MonoBehaviour
   bool check = true;
   public Rigidbody rb;
   private Global globalScript;
+
   void Start()
   {
+
     GameObject globalObject = GameObject.Find("Global");
     if (globalObject != null)
     {
@@ -55,6 +57,7 @@ public class BallMove : MonoBehaviour
     globalScript.ChangeCamera();
     rb = GetComponent<Rigidbody>();
     Debug.Log(transform.forward);
+    Debug.Log("saa" + globalScript.shotcount);
   }
 
   void OnCollisionStay(Collision collision)
@@ -206,6 +209,10 @@ public class BallMove : MonoBehaviour
       {
 
         NextScenename = "Stage4";
+      }
+      else
+      {
+        NextScenename = "NextSceneName";
       }
       globalScript.cameraPermission = false;
       globalScript.SwitchScene();

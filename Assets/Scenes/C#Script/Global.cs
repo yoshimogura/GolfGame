@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class Global : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class Global : MonoBehaviour
     public Vector3 cameraOffset = new Vector3(10, 20, 0);
     void Start()
     {
-
+        GenerateClones();
         SpawnBall(spawnPosition);
         nextStageText.gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();//音の取得をして
@@ -95,7 +96,7 @@ public class Global : MonoBehaviour
             Vector3 newCameraPosition = targetObject - (direction * 16f); // 例としてカメラの新しい位置
             newCameraPosition.y += 12f;
             cameraController.SetPosition(newCameraPosition, cup);
-            Debug.Log("kita");
+
 
             // ボールの後ろにカメラを移動 
             // cameraTransform.position = targetObject + cameraOffset;
@@ -106,21 +107,31 @@ public class Global : MonoBehaviour
     }
     public void SwitchScene()
     {
-        audioSource.PlayOneShot(sound1);
+        ballMoveScript = ball.GetComponent<BallMove>();
+        // audioSource.PlayOneShot(sound1);
         isSceneSwitching = true;
         nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
         ballMoveScript.Cupin = true;
+        WaitAndPrint();
+        PlayerPrefs.SetInt("TotalShot", shotcount);
+        PlayerPrefs.Save();
 
-        // yield return new WaitForSeconds(displayDuration); // 指定時間待機
-        // PlayerPrefs.SetInt("TotalShot", shotcount);
-        // PlayerPrefs.Save();
-        // SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
-        // nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
-        // isSceneSwitching = false;
-        // cameraPermission = true;
+        Debug.Log(ballMoveScript.NextScenename);
+        SceneManager.LoadScene(ballMoveScript.NextScenename);// 次のシーンに移動 
+
+        nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
+        isSceneSwitching = false;
+        cameraPermission = true;
+
         Debug.Log("OK");
 
     }
+    IEnumerator WaitAndPrint()
+    { // 3秒待つ 
+        yield return new WaitForSeconds(3); // 3秒待った後に実行する処理 
+        Debug.Log("3秒経ちました！");
+    }
+
     public void SwitchImage()
     {
         imageSwitcher.SwitchImage();
@@ -135,7 +146,7 @@ public class Global : MonoBehaviour
 
     void GenerateClones()
     {
-        GetComponent<AudioSource>().Play();
+        // GetComponent<AudioSource>().Play();
         for (int i = 0; i < numberOfClones; i++)
         {
             // X座標
