@@ -34,7 +34,7 @@ public class Global : MonoBehaviour
     public bool cameraPermission = true;
     public GameObject cameraObject;
     public Transform cup;
-    public int shotcount = 0;
+    private int shotcount = 0;
     float displayDuration = 3f; // テキスト表示時間 
 
     public Transform cameraTransform;
@@ -64,8 +64,9 @@ public class Global : MonoBehaviour
 
 
     }
-    public void ChangeShotcount()
+    public void StopBall()
     {
+        shotcount++;
         ShotCountText.text = "Score:" + shotcount;
     }
     public void ChangeCamera()

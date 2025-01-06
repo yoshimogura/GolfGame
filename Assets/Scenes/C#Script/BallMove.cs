@@ -57,7 +57,7 @@ public class BallMove : MonoBehaviour
     globalScript.ChangeCamera();
     rb = GetComponent<Rigidbody>();
     Debug.Log(transform.forward);
-    Debug.Log("saa" + globalScript.shotcount);
+
   }
 
   void OnCollisionStay(Collision collision)
@@ -152,10 +152,10 @@ public class BallMove : MonoBehaviour
 
       //音
       addForce = true;
-      Debug.Log("saaaa" + globalScript.shotcount);
-      globalScript.shotcount = globalScript.shotcount + 1;
 
-      globalScript.ChangeShotcount();
+
+      Debug.Log("StopBall");
+      globalScript.StopBall();
 
       shot = true;
     }
