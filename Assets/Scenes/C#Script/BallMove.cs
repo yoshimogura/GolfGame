@@ -17,7 +17,7 @@ public class BallMove : MonoBehaviour
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
   // 動いているフラグ 
-  public bool ismoving = false;
+  public bool isMoving = false;
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   float maxShotPower = 20f;     // 最大のショット強さ
 
@@ -88,7 +88,7 @@ public class BallMove : MonoBehaviour
       globalScript.SwitchShotPower(shotPower);
     }
     // ボールが動いている時に速度をログに出力
-    if (ismoving && first && check)
+    if (isMoving && first && check)
     {
       check = false;
       Debug.Log("magnitude: " + rb.velocity.magnitude);
@@ -106,15 +106,15 @@ public class BallMove : MonoBehaviour
       // camera.transform.position = new Vector3(148, 25, -62);
     }
     // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
-    if (!ismoving && rb.velocity.magnitude > 0)
+    if (!isMoving && rb.velocity.magnitude > 0)
     {
       Debug.Log("start move");
-      ismoving = true; // 速度監視を開始
+      isMoving = true; // 速度監視を開始
 
     }
 
     // 速度監視が開始されている場合、速度を監視する
-    if (ismoving && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope && !Cupin)
+    if (isMoving && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope && !Cupin)
     {
       Debug.Log("stop move");
       // ボールを完全に停止させる
@@ -125,12 +125,12 @@ public class BallMove : MonoBehaviour
 
       // Rigidbodyの物理演算を停止して完全に静止させる
       rb.isKinematic = true;
-      ismoving = false;
+      isMoving = false;
       shot = false;
 
     }
     //打つ
-    if (!ismoving && Input.GetKeyDown(KeyCode.Space))
+    if (!isMoving && Input.GetKeyDown(KeyCode.Space))
     {
       //マウスの位置で方向を決定
       // カメラとマウスの位置を元にRayを準備
@@ -151,7 +151,7 @@ public class BallMove : MonoBehaviour
       Debug.Log(transform.forward * (shotPower / 12));
 
       //音
-      ismoving = true;
+      isMoving = true;
 
 
       Debug.Log("StopBall");
