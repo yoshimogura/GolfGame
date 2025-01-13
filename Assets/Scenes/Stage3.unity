@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1669083753244741314, guid: ff6a2ecf52efb834cbe29191873248ae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7313893672082872650, guid: ff6a2ecf52efb834cbe29191873248ae, type: 3}
       propertyPath: m_Pivot.x
@@ -6304,7 +6304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
       propertyPath: spawnPosition.y
-      value: 13
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 2883926006468081377, guid: a08a1015a51f75e4d864760e68c29523, type: 3}
       propertyPath: spawnPosition.z
@@ -16950,6 +16950,10 @@ PrefabInstance:
     - target: {fileID: 1737652949502638495, guid: 70b5e1aab40f8b74997aab8abd9f0e81, type: 3}
       propertyPath: m_Name
       value: Fence
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737652949502638495, guid: 70b5e1aab40f8b74997aab8abd9f0e81, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1948207960742237957, guid: 70b5e1aab40f8b74997aab8abd9f0e81, type: 3}
       propertyPath: m_Mesh

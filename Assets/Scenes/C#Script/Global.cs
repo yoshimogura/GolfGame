@@ -40,6 +40,7 @@ public class Global : MonoBehaviour
     public Transform cameraTransform;
     public Vector3 cameraOffset = new Vector3(10, 20, 0);
     public string NextScenename = "";
+    bool shot = false;
     void Start()
     {
         GenerateClones();
@@ -65,10 +66,20 @@ public class Global : MonoBehaviour
 
 
     }
+    public void ShotBall()
+    {
+        if (!shot)
+        {
+            shotcount++;
+            ShotCountText.text = "Score:" + shotcount;
+            shot = true;
+        }
+
+
+    }
     public void StopBall()
     {
-        shotcount++;
-        ShotCountText.text = "Score:" + shotcount;
+        shot = false;
     }
     public void ChangeCamera()
     {
@@ -87,7 +98,7 @@ public class Global : MonoBehaviour
 
             // UIに現在のショット強さを表示
 
-            powerText.text = $"Power: {shotPower * 2.5:F1}";
+            // powerText.text = $"Power: {shotPower * 2.5:F1}";
             // Debug.Log("kitaze");
             // CameraControllerスクリプトを取得
             CameraController cameraController = cameraObject.GetComponent<CameraController>();
@@ -172,7 +183,7 @@ public class Global : MonoBehaviour
     // ボールが動いている時に速度をログに出力
     public void SwitchShotPower(float shotPower)
     {
-        powerText.text = $"Power: {shotPower * 5:F1}";
+        powerText.text = $"Power: {shotPower * 5:F1}%";
     }
 
 
