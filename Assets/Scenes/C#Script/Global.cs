@@ -183,7 +183,7 @@ public class Global : MonoBehaviour
     // ボールが動いている時に速度をログに出力
     public void SwitchShotPower(float shotPower)
     {
-        powerText.text = $"Power: {shotPower * 5:F1}%";
+        powerText.text = $"Power: {shotPower * 5:F1}";
     }
 
 
