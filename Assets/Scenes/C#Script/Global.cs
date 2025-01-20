@@ -5,6 +5,7 @@ using TMPro;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using UnityEditor.PackageManager;
 
 public class Global : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class Global : MonoBehaviour
     public Vector3 cameraOffset = new Vector3(10, 20, 0);
     public string NextScenename = "";
     bool shot = false;
+    int SceneNumber = 1;
+    bool SceneChangeCheck = false;
     void Start()
     {
         GenerateClones();
@@ -51,6 +54,8 @@ public class Global : MonoBehaviour
         // camera.transform.position = new Vector3(148, 25, -62);
         GameObject ballMoveObject = GameObject.FindWithTag("BallMoveObject");
         ballMoveScript = ballMoveObject.GetComponent<BallMove>();
+        SceneChangeCheck = false;
+        Debug.Log(SceneChangeCheck);
 
 
     }
@@ -125,49 +130,39 @@ public class Global : MonoBehaviour
     }
     public void SwitchScene()
     {
-        if (SceneManager.GetActiveScene().name == "Stage4")
+        if (!SceneChangeCheck)
         {
+            SceneNumber++;
+            SceneChangeCheck = true;
 
-            NextScenename = "Clear";
+
+            if (SceneManager.GetActiveScene().name == "Stage4")
+            {
+
+                NextScenename = "Clear";
+            }
+            else
+            {
+                NextScenename = "Stage" + SceneNumber;
+            }
+
+            // audioSource.PlayOneShot(sound1);
+            isSceneSwitching = true;
+            nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
+            ballMoveScript.Cupin = true;
+            WaitAndPrint();
+            PlayerPrefs.SetInt("TotalShot", shotcount);
+            PlayerPrefs.Save();
+
+            Debug.Log(NextScenename);
+            SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
+
+            nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
+            isSceneSwitching = false;
+            cameraPermission = true;
+
+            Debug.Log("OK");
         }
-        else if (SceneManager.GetActiveScene().name == "Stage1")
-        {
-
-            NextScenename = "Stage2";
-            // NextScenename = "Clear";
-        }
-        else if (SceneManager.GetActiveScene().name == "Stage2")
-        {
-
-            // NextScenename = "Clear";
-            NextScenename = "Stage3";
-        }
-        else if (SceneManager.GetActiveScene().name == "Stage3")
-        {
-
-            NextScenename = "Stage4";
-        }
-        else
-        {
-            NextScenename = "NextSceneName";
-        }
-        // audioSource.PlayOneShot(sound1);
-        isSceneSwitching = true;
-        nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
-        ballMoveScript.Cupin = true;
-        WaitAndPrint();
-        PlayerPrefs.SetInt("TotalShot", shotcount);
-        PlayerPrefs.Save();
-
-        Debug.Log(NextScenename);
-        SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
-
-        nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
-        isSceneSwitching = false;
-        cameraPermission = true;
-
-        Debug.Log("OK");
-
     }
     IEnumerator WaitAndPrint()
     { // 3秒待つ 

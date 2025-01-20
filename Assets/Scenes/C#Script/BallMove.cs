@@ -31,13 +31,12 @@ public class BallMove : MonoBehaviour
 
   Plane plane = new Plane();
   float distance = 0;
-  private bool isOnSlope = false;
   public bool Cupin = false;
   bool check = true;
   public Rigidbody rb;
   private Global globalScript;
   //坂の影響を考慮して、停止カウントが一定になった時に完全に停止したと判定する
-  private int stopcount = 0;
+  int stopcount = 0;
 
   void Start()
   {
@@ -55,19 +54,41 @@ public class BallMove : MonoBehaviour
     {
       Debug.LogError("Global object not found!");
     }
-    globalScript.ChangeCamera();
     rb = GetComponent<Rigidbody>();
     Debug.Log(transform.forward);
 
   }
+  void FixedUpdate()
+  {
 
-  void OnCollisionStay(Collision collision)
-  { // "Slope"というタグを持つオブジェクトに触れているとき 
-    if (collision.gameObject.CompareTag("slope")) { isOnSlope = true; }
-  }
-  void OnCollisionExit(Collision collision)
-  { // "Slope"というタグを持つオブジェクトから離れたとき 
-    if (collision.gameObject.CompareTag("slope")) { isOnSlope = false; }
+    if (isMoving)
+    {
+      //ボールが止まった判定
+      if (rb.velocity.magnitude < startMonitoringSpeed && !Cupin)
+      {
+        stopcount++;
+        if (stopcount >= 100)
+        {
+          globalScript.StopBall();
+          Debug.Log("stop ball");
+          // ボールを完全に停止させる
+          globalScript.ChangeCamera();//カメラの視点変更
+          rb.velocity = Vector3.zero;
+          rb.angularVelocity = Vector3.zero;
+          globalScript.SwitchImage();
+
+          // Rigidbodyの物理演算を停止して完全に静止させる
+          rb.isKinematic = true;
+          isMoving = false;
+        }
+      }
+
+
+    }
+    else
+    {
+      stopcount = 0;
+    }
   }
   void Update()
   {
@@ -114,22 +135,7 @@ public class BallMove : MonoBehaviour
     }
 
     // 速度監視が開始されている場合、速度を監視する
-    if (isMoving && rb.velocity.magnitude < startMonitoringSpeed && !isOnSlope && !Cupin)
-    {
-      globalScript.StopBall();
-      Debug.Log("stop ball");
-      // ボールを完全に停止させる
-      globalScript.ChangeCamera();//カメラの視点変更
-      rb.velocity = Vector3.zero;
-      rb.angularVelocity = Vector3.zero;
-      globalScript.SwitchImage();
 
-      // Rigidbodyの物理演算を停止して完全に静止させる
-      rb.isKinematic = true;
-      isMoving = false;
-
-
-    }
     //打つ
     if (!isMoving && Input.GetKeyDown(KeyCode.Space))
     {
