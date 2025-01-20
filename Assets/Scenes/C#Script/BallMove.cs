@@ -8,9 +8,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using TMPro;
 using System;
+public enum BallState
+{
+  Placed,
+  KeyInput,
+  MoveStarted,
+  Moving
+}
 public class BallMove : MonoBehaviour
 {
-
+  private BallState currentState = BallState.Placed;
   public float forceAmount = 3f; // ボールに与える力の量
   public bool first = true;
   public float startMonitoringSpeed = 0.4f;
@@ -82,16 +89,26 @@ public class BallMove : MonoBehaviour
           isMoving = false;
         }
       }
-
+      else
+      {
+        stopcount = 0;
+      }
 
     }
-    else
-    {
-      stopcount = 0;
-    }
+
   }
   void Update()
   {
+
+    switch (currentState)
+    {
+      case BallState.Placed:
+        // やること
+        break;
+
+      case BallState.KeyInput:
+        break;
+    }
     // マウスからレイを飛ばして衝突地点を取得
     Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
