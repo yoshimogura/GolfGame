@@ -163,24 +163,8 @@ public class BallMove : MonoBehaviour
         break;
     }
 
-    // ボールが動いている時に速度をログに出力
-    if (first && check)
-    {
-      check = false;
-      Debug.Log("magnitude: " + rb.velocity.magnitude);
-      if (94 > this.transform.position.x)
-      {
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.position = new Vector3(106, 24, -61);
-        first = false;
-      }
 
-    }
-    if (!first && (94 <= this.transform.position.x))
-    {
-      GameObject camera = GameObject.Find("Main Camera");
-      // camera.transform.position = new Vector3(148, 25, -62);
-    }
+
 
 
     // 速度監視が開始されている場合、速度を監視する

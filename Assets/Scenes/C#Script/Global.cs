@@ -86,6 +86,7 @@ public class Global : MonoBehaviour
     {
         shot = false;
     }
+
     public void ChangeCamera()
     {
 
