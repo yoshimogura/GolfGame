@@ -23,8 +23,8 @@ public class BallMove : MonoBehaviour
   public float startMonitoringSpeed = 0.4f;
   // スピードが停止したと判断する閾値
   public float stopSpeedThreshold = 0.5f;
-  // 動いているフラグ 
-  public bool isMoving = false;
+
+
   // 力を加えたフラグ（グッと押した１回のキー入力を１回として捉える）
   float maxShotPower = 20f;     // 最大のショット強さ
 
@@ -65,68 +65,106 @@ public class BallMove : MonoBehaviour
     Debug.Log(transform.forward);
 
   }
-  void FixedUpdate()
-  {
 
-    if (isMoving)
-    {
-      //ボールが止まった判定
-      if (rb.velocity.magnitude < startMonitoringSpeed && !Cupin)
-      {
-        stopcount++;
-        if (stopcount >= 100)
-        {
-          globalScript.StopBall();
-          Debug.Log("stop ball");
-          // ボールを完全に停止させる
-          globalScript.ChangeCamera();//カメラの視点変更
-          rb.velocity = Vector3.zero;
-          rb.angularVelocity = Vector3.zero;
-          globalScript.SwitchImage();
-
-          // Rigidbodyの物理演算を停止して完全に静止させる
-          rb.isKinematic = true;
-          isMoving = false;
-        }
-      }
-      else
-      {
-        stopcount = 0;
-      }
-
-    }
-
-  }
   void Update()
   {
 
     switch (currentState)
     {
       case BallState.Placed:
-        // やること
+
+        // マウスからレイを飛ばして衝突地点を取得
+        Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(Powerray, out hit))
+        {
+          // 衝突地点とボールの位置から距離と方向を計算
+          Vector3 hitPosition = hit.point;
+          shotDirection = (hitPosition - this.transform.position).normalized;
+          shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
+
+          // UIに現在のショット強さを表示
+
+          // powerText.text = $"Power: {shotPower * 2.5:F1}";
+          globalScript.SwitchShotPower(shotPower);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+          currentState = BallState.KeyInput;
+        }
+
         break;
 
       case BallState.KeyInput:
+
+        //マウスの位置で方向を決定
+        // カメラとマウスの位置を元にRayを準備
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
+        plane.SetNormalAndPosition(Vector3.up, transform.localPosition);
+        if (plane.Raycast(ray, out distance))
+        {
+          // 距離を元に交点を算出して、交点の方を向く
+          var lookPoint = ray.GetPoint(distance);
+          transform.LookAt(lookPoint);
+        }
+        globalScript.SwitchImage();
+        //その方向に力を加える
+        Debug.Log("space key down");
+
+        rb.AddForce(transform.forward * (shotPower / 12), ForceMode.Impulse);
+        Debug.Log(transform.forward * (shotPower / 12));
+
+        //音
+
+
+
+        Debug.Log("StopBall");
+        globalScript.ShotBall();
+
+
+
+        currentState = BallState.MoveStarted;
+        break;
+
+
+      case BallState.MoveStarted:
+        currentState = BallState.Moving;
+
+        break;
+
+      case BallState.Moving:
+        //ボールが止まった判定
+        if (rb.velocity.magnitude < startMonitoringSpeed && !Cupin)
+        {
+          stopcount++;
+          if (stopcount >= 150)
+          {
+            globalScript.StopBall();
+            Debug.Log("stop ball");
+            // ボールを完全に停止させる
+            globalScript.ChangeCamera();//カメラの視点変更
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            globalScript.SwitchImage();
+
+            // Rigidbodyの物理演算を停止して完全に静止させる
+
+            currentState = BallState.Placed;
+          }
+        }
+        else
+        {
+          stopcount = 0;
+        }
+
+
         break;
     }
-    // マウスからレイを飛ばして衝突地点を取得
-    Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    RaycastHit hit;
 
-    if (Physics.Raycast(Powerray, out hit))
-    {
-      // 衝突地点とボールの位置から距離と方向を計算
-      Vector3 hitPosition = hit.point;
-      shotDirection = (hitPosition - this.transform.position).normalized;
-      shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
-
-      // UIに現在のショット強さを表示
-
-      // powerText.text = $"Power: {shotPower * 2.5:F1}";
-      globalScript.SwitchShotPower(shotPower);
-    }
     // ボールが動いている時に速度をログに出力
-    if (isMoving && first && check)
+    if (first && check)
     {
       check = false;
       Debug.Log("magnitude: " + rb.velocity.magnitude);
@@ -143,50 +181,12 @@ public class BallMove : MonoBehaviour
       GameObject camera = GameObject.Find("Main Camera");
       // camera.transform.position = new Vector3(148, 25, -62);
     }
-    // 速度が一定以上になったら速度監視を開始（すぐ監視すると、動かす前に止まる）
-    if (!isMoving && rb.velocity.magnitude > 0.4)
-    {
-      Debug.Log("start move");
-      isMoving = true; // 速度監視を開始
 
-    }
 
     // 速度監視が開始されている場合、速度を監視する
 
-    //打つ
-    if (!isMoving && Input.GetKeyDown(KeyCode.Space))
-    {
 
-      //マウスの位置で方向を決定
-      // カメラとマウスの位置を元にRayを準備
-      var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-      // プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
-      plane.SetNormalAndPosition(Vector3.up, transform.localPosition);
-      if (plane.Raycast(ray, out distance))
-      {
-        // 距離を元に交点を算出して、交点の方を向く
-        var lookPoint = ray.GetPoint(distance);
-        transform.LookAt(lookPoint);
-      }
-      globalScript.SwitchImage();
-      //その方向に力を加える
-      Debug.Log("space key down");
-      rb.isKinematic = false;
-      rb.AddForce(transform.forward * (shotPower / 12), ForceMode.Impulse);
-      Debug.Log(transform.forward * (shotPower / 12));
-
-      //音
-      // isMoving = true;
-
-
-      Debug.Log("StopBall");
-      globalScript.ShotBall();
-
-
-    }
   }
-
-
   void OnCollisionEnter(Collision collision)
   {
     if (collision.gameObject.name == "Pond")
@@ -202,4 +202,6 @@ public class BallMove : MonoBehaviour
       globalScript.SwitchScene();
     }
   }
+
+
 }
