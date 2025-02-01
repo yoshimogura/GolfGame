@@ -39,12 +39,12 @@ public class BallMove : MonoBehaviour
   Plane plane = new Plane();
   float distance = 0;
   public bool Cupin = false;
-  bool check = true;
   public Rigidbody rb;
   private Global globalScript;
+  public ChangeImage ChangeImageScript;
   //坂の影響を考慮して、停止カウントが一定になった時に完全に停止したと判定する
   int stopcount = 0;
-
+  int a = 0;
   void Start()
   {
 
@@ -133,8 +133,10 @@ public class BallMove : MonoBehaviour
 
 
       case BallState.MoveStarted:
-        globalScript.SwitchImage();
+        ChangeImageScript.SwitchImage();
+        a++;
         currentState = BallState.Moving;
+
 
         break;
 
@@ -145,6 +147,8 @@ public class BallMove : MonoBehaviour
           stopcount++;
           if (stopcount >= 150)
           {
+            a++;
+            Debug.Log(a);
             globalScript.StopBall();
             Debug.Log("stop ball");
             // ボールを完全に停止させる
@@ -152,7 +156,7 @@ public class BallMove : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            globalScript.SwitchImage();
+            ChangeImageScript.SwitchImage();
 
             // Rigidbodyの物理演算を停止して完全に静止させる
 

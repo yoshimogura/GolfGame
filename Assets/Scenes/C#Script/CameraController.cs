@@ -11,6 +11,5 @@ public class CameraController : MonoBehaviour
         transform.position = newPosition;
         // カメラがターゲットを向くようにする
         transform.LookAt(target);
-        Debug.Log("a");
     }
 }
