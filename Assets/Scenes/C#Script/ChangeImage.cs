@@ -6,24 +6,32 @@ public class ChangeImage : MonoBehaviour
 {
     // Start is called before the first frame update
     public Image targetImage; // Imageコンポーネントをアタッチ 
-    public Sprite sprite1; // 1つ目の画像 
-    public Sprite sprite2; // 2つ目の画像 
-    private bool isFirstImage = true;
+    public Sprite sprite1; // 打てない画像 
+    public Sprite sprite2; // 打てる画像
+    private bool NowImage;
     void Start()
     { // 初期画像を設定 
-        if (sprite1 != null) { targetImage.sprite = sprite1; }
+
+        targetImage.sprite = sprite2;
+        NowImage = true;//打てる画像
+        Debug.Log("Start時打てる画像に");
+
     }
     public void SwitchImage()
+
     { // 画像を切り替える 
-        if (isFirstImage && sprite2 != null)
+        Debug.Log("SwitchImageに来た");
+        if (!NowImage)
         {
             targetImage.sprite = sprite2;
+            NowImage = true;
+            Debug.Log("SwitchImageで打てるのにした");
         }
-        else if (sprite1 != null)
+        else
         {
             targetImage.sprite = sprite1;
+            NowImage = false;
+            Debug.Log("SwitchImageで打てないのにした");
         }
-
-        isFirstImage = !isFirstImage; // 状態を切り替える }
     }
 }

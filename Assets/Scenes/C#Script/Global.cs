@@ -89,7 +89,7 @@ public class Global : MonoBehaviour
 
     public void ChangeCamera()
     {
-
+        Debug.Log("zChangecameraを呼んだ");
         Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 

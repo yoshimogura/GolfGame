@@ -74,14 +74,22 @@ public class BallMove : MonoBehaviour
       case BallState.Placed:
 
         // マウスからレイを飛ばして衝突地点を取得
+        // カメラとマウスの位置を元にRayを準備
+
+        currentState = BallState.KeyInput;
+
+
+        break;
+
+      case BallState.KeyInput:
+        //音
         Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
         if (Physics.Raycast(Powerray, out hit))
         {
           // 衝突地点とボールの位置から距離と方向を計算
           Vector3 hitPosition = hit.point;
-          shotDirection = (hitPosition - this.transform.position).normalized;
+          // shotDirection = (hitPosition - this.transform.position).normalized;
           shotPower = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPosition), 0, maxShotPower);
 
           // UIに現在のショット強さを表示
@@ -91,45 +99,41 @@ public class BallMove : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-          currentState = BallState.KeyInput;
+          globalScript.ShotBall();
+          //マウスの位置で方向を決定
+          // カメラとマウスの位置を元にRayを準備
+          var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+          // プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
+          plane.SetNormalAndPosition(Vector3.up, transform.localPosition);
+          if (plane.Raycast(ray, out distance))
+          {
+            // 距離を元に交点を算出して、交点の方を向く
+            var lookPoint = ray.GetPoint(distance);
+            transform.LookAt(lookPoint);
+          }
+
+          //その方向に力を加える
+          Debug.Log("space key down");
+
+          rb.AddForce(transform.forward * (shotPower / 12), ForceMode.Impulse);
+          Debug.Log(transform.forward * (shotPower / 12));
+
+          currentState = BallState.MoveStarted;
+
+
         }
+
 
         break;
 
-      case BallState.KeyInput:
-
-        //マウスの位置で方向を決定
-        // カメラとマウスの位置を元にRayを準備
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
-        plane.SetNormalAndPosition(Vector3.up, transform.localPosition);
-        if (plane.Raycast(ray, out distance))
-        {
-          // 距離を元に交点を算出して、交点の方を向く
-          var lookPoint = ray.GetPoint(distance);
-          transform.LookAt(lookPoint);
-        }
-        globalScript.SwitchImage();
-        //その方向に力を加える
-        Debug.Log("space key down");
-
-        rb.AddForce(transform.forward * (shotPower / 12), ForceMode.Impulse);
-        Debug.Log(transform.forward * (shotPower / 12));
-
-        //音
 
 
 
-        Debug.Log("StopBall");
-        globalScript.ShotBall();
 
-
-
-        currentState = BallState.MoveStarted;
-        break;
 
 
       case BallState.MoveStarted:
+        globalScript.SwitchImage();
         currentState = BallState.Moving;
 
         break;
@@ -147,11 +151,12 @@ public class BallMove : MonoBehaviour
             globalScript.ChangeCamera();//カメラの視点変更
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+
             globalScript.SwitchImage();
 
             // Rigidbodyの物理演算を停止して完全に静止させる
 
-            currentState = BallState.Placed;
+            currentState = BallState.KeyInput;
           }
         }
         else
