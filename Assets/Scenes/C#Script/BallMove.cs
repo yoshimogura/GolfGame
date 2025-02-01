@@ -66,7 +66,7 @@ public class BallMove : MonoBehaviour
 
   }
 
-  void Update()
+  void FixedUpdate()
   {
 
     switch (currentState)
