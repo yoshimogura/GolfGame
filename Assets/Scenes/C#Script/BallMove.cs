@@ -158,7 +158,7 @@ public class BallMove : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
 
             ChangeImageScript.SwitchImage();
-            // globalScript.SwitchImage();
+            //  globalScript.SwitchImage();
 
             // Rigidbodyの物理演算を停止して完全に静止させる
 
