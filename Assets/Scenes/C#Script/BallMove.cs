@@ -44,7 +44,7 @@ public class BallMove : MonoBehaviour
   public ChangeImage ChangeImageScript;
   //坂の影響を考慮して、停止カウントが一定になった時に完全に停止したと判定する
   int stopcount = 0;
-  int a = 0;
+  // int a = 0;
   void Start()
   {
 
@@ -133,9 +133,8 @@ public class BallMove : MonoBehaviour
 
 
       case BallState.MoveStarted:
-        ChangeImageScript.SwitchImage();
-        // globalScript.SwitchImage();
-        a++;
+        globalScript.SwitchImage();//ここで画像の変更を命令
+        // a++;
         currentState = BallState.Moving;
 
 
@@ -148,8 +147,8 @@ public class BallMove : MonoBehaviour
           stopcount++;
           if (stopcount >= 150)
           {
-            a++;
-            Debug.Log(a);
+            // a++;
+            // Debug.Log(a);
             globalScript.StopBall();
             Debug.Log("stop ball");
             // ボールを完全に停止させる
@@ -157,8 +156,7 @@ public class BallMove : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            ChangeImageScript.SwitchImage();
-            //  globalScript.SwitchImage();
+            globalScript.SwitchImage();//ここで画像の変更を命令
 
             // Rigidbodyの物理演算を停止して完全に静止させる
 
