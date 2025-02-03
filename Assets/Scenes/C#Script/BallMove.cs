@@ -133,7 +133,7 @@ public class BallMove : MonoBehaviour
 
 
       case BallState.MoveStarted:
-        globalScript.SwitchImage();//ここで画像の変更を命令
+        globalScript.ballMoveStart();//ここで画像の変更を命令
         // a++;
         currentState = BallState.Moving;
 
@@ -149,14 +149,11 @@ public class BallMove : MonoBehaviour
           {
             // a++;
             // Debug.Log(a);
-            globalScript.StopBall();
+            globalScript.PrepareToShot();
             Debug.Log("stop ball");
             // ボールを完全に停止させる
-            globalScript.ChangeCamera();//カメラの視点変更
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
-            globalScript.SwitchImage();//ここで画像の変更を命令
 
             // Rigidbodyの物理演算を停止して完全に静止させる
 

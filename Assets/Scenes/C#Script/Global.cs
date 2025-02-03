@@ -82,11 +82,16 @@ public class Global : MonoBehaviour
 
 
     }
-    public void StopBall()
+    public void PrepareToShot()
     {
         shot = false;
+        ChangeCamera();
+        imageSwitcher.Available();
     }
-
+    public void ballMoveStart()
+    {
+        imageSwitcher.NotAvailable();
+    }
     public void ChangeCamera()
     {
         Debug.Log("zChangecameraを呼んだ");
@@ -171,10 +176,7 @@ public class Global : MonoBehaviour
         Debug.Log("3秒経ちました！");
     }
 
-    public void SwitchImage()
-    {
-        imageSwitcher.SwitchImage();
-    }
+
 
     // ボールが動いている時に速度をログに出力
     public void SwitchShotPower(float shotPower)
