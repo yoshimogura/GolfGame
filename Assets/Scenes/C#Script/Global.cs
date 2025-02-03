@@ -56,7 +56,8 @@ public class Global : MonoBehaviour
         ballMoveScript = ballMoveObject.GetComponent<BallMove>();
         SceneChangeCheck = false;
         Debug.Log(SceneChangeCheck);
-
+        shotcount = PlayerPrefs.GetInt("TotalShot", shotcount); ;
+        ChangeCamera();
 
     }
     void SpawnBall(Vector3 position)
@@ -65,11 +66,6 @@ public class Global : MonoBehaviour
 
         ballObj.AddComponent<BallMove>();
         // Instantiate(ball, new Vector3(0, 0, 0), Quaternion.identity);
-    }
-    void Update()
-    {
-
-
     }
     public void ShotBall()
     {
@@ -151,12 +147,12 @@ public class Global : MonoBehaviour
             {
                 NextScenename = "Stage" + SceneNumber;
             }
-
+            WaitAndPrint();
             // audioSource.PlayOneShot(sound1);
             isSceneSwitching = true;
             nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
             ballMoveScript.Cupin = true;
-            WaitAndPrint();
+
             PlayerPrefs.SetInt("TotalShot", shotcount);
             PlayerPrefs.Save();
 
@@ -166,6 +162,7 @@ public class Global : MonoBehaviour
             nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
             isSceneSwitching = false;
             cameraPermission = true;
+
 
             Debug.Log("OK");
         }
@@ -179,7 +176,7 @@ public class Global : MonoBehaviour
 
 
     // ボールが動いている時に速度をログに出力
-    public void SwitchShotPower(float shotPower)
+    public void UpdateShotPower(float shotPower)
     {
         powerText.text = $"Power: {shotPower * 5:F1}";
     }

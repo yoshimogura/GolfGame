@@ -44,7 +44,6 @@ public class BallMove : MonoBehaviour
   public ChangeImage ChangeImageScript;
   //坂の影響を考慮して、停止カウントが一定になった時に完全に停止したと判定する
   int stopcount = 0;
-  // int a = 0;
   void Start()
   {
 
@@ -83,9 +82,9 @@ public class BallMove : MonoBehaviour
 
       case BallState.KeyInput:
         //音
-        Ray Powerray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(Powerray, out hit))
+        if (Physics.Raycast(ray, out hit))
         {
           // 衝突地点とボールの位置から距離と方向を計算
           Vector3 hitPosition = hit.point;
@@ -95,14 +94,12 @@ public class BallMove : MonoBehaviour
           // UIに現在のショット強さを表示
 
           // powerText.text = $"Power: {shotPower * 2.5:F1}";
-          globalScript.SwitchShotPower(shotPower);
+          globalScript.UpdateShotPower(shotPower);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
           globalScript.ShotBall();
           //マウスの位置で方向を決定
-          // カメラとマウスの位置を元にRayを準備
-          var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
           // プレイヤーの高さにPlaneを更新して、カメラの情報を元に地面判定して距離を取得
           plane.SetNormalAndPosition(Vector3.up, transform.localPosition);
           if (plane.Raycast(ray, out distance))
@@ -127,11 +124,6 @@ public class BallMove : MonoBehaviour
         break;
 
 
-
-
-
-
-
       case BallState.MoveStarted:
         globalScript.ballMoveStart();//ここで画像の変更を命令
         // a++;
@@ -147,16 +139,11 @@ public class BallMove : MonoBehaviour
           stopcount++;
           if (stopcount >= 150)
           {
-            // a++;
-            // Debug.Log(a);
             globalScript.PrepareToShot();
             Debug.Log("stop ball");
-            // ボールを完全に停止させる
+            // Rigidbodyの物理演算を停止してボールを完全に停止させる
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
-            // Rigidbodyの物理演算を停止して完全に静止させる
-
             currentState = BallState.KeyInput;
           }
         }
@@ -172,8 +159,6 @@ public class BallMove : MonoBehaviour
 
 
 
-
-    // 速度監視が開始されている場合、速度を監視する
 
 
   }
