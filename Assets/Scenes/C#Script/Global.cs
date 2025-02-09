@@ -9,6 +9,7 @@ using UnityEditor.PackageManager;
 
 public class Global : MonoBehaviour
 {
+
     // Start is called before the first frame update
     public GameObject objectToClone;
     public GameObject objectToClone2;
@@ -44,8 +45,24 @@ public class Global : MonoBehaviour
     bool shot = false;
     int SceneNumber = 1;
     bool SceneChangeCheck = false;
+    public static Global Instance { get; private set; }
+    public int SaveShotcount = 0; // シーンを跨いで保持したい変数
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // シーンをまたいで維持
+        }
+        else
+        {
+            Destroy(gameObject); // 既に存在する場合は削除
+        }
+    }
     void Start()
     {
+
         GenerateClones();
         SpawnBall(spawnPosition);
         nextStageText.gameObject.SetActive(false);
@@ -56,8 +73,9 @@ public class Global : MonoBehaviour
         ballMoveScript = ballMoveObject.GetComponent<BallMove>();
         SceneChangeCheck = false;
         Debug.Log(SceneChangeCheck);
-        shotcount = PlayerPrefs.GetInt("TotalShot", shotcount); ;
         ChangeCamera();
+        int currentScore = Global.Instance.GetShotCount();
+        ShotCountText.text = "Score:" + currentScore;
 
     }
     void SpawnBall(Vector3 position)
@@ -71,15 +89,18 @@ public class Global : MonoBehaviour
     {
         if (!shot)
         {
-            shotcount++;
-            ShotCountText.text = "Score:" + shotcount;
+            Global.Instance.AddShotCount(1); // スコアを +1
+            // int currentScore = Global.Instance.GetShotCount();
+            ShotCountText.text = "Score:" + SaveShotcount;
             shot = true;
+            Debug.Log("PrepareToShotcount");
         }
 
 
     }
     public void PrepareToShot()
     {
+
         shot = false;
         ChangeCamera();
         imageSwitcher.Available();
@@ -153,9 +174,6 @@ public class Global : MonoBehaviour
             nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
             ballMoveScript.Cupin = true;
 
-            PlayerPrefs.SetInt("TotalShot", shotcount);
-            PlayerPrefs.Save();
-
             Debug.Log(NextScenename);
             SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
 
@@ -214,5 +232,13 @@ public class Global : MonoBehaviour
             }
         }
 
+    }
+    public void AddShotCount(int amount)
+    {
+        SaveShotcount += amount;
+    }
+    public int GetShotCount()
+    {
+        return SaveShotcount;
     }
 }
