@@ -62,7 +62,7 @@ public class Global : MonoBehaviour
     }
     void Start()
     {
-
+        Debug.Log("Start");
         GenerateClones();
         SpawnBall(spawnPosition);
         nextStageText.gameObject.SetActive(false);
@@ -89,7 +89,6 @@ public class Global : MonoBehaviour
     {
         if (!shot)
         {
-            Global.Instance.AddShotCount(1); // スコアを +1
             // int currentScore = Global.Instance.GetShotCount();
             ShotCountText.text = "Score:" + SaveShotcount;
             shot = true;
