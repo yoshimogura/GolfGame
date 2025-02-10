@@ -36,7 +36,6 @@ public class Global : MonoBehaviour
     public bool cameraPermission = true;
     public GameObject cameraObject;
     public Transform cup;
-    private int shotcount = 0;
     float displayDuration = 3f; // テキスト表示時間 
 
     public Transform cameraTransform;
@@ -45,21 +44,7 @@ public class Global : MonoBehaviour
     bool shot = false;
     int SceneNumber = 1;
     bool SceneChangeCheck = false;
-    public static Global Instance { get; private set; }
-    public int SaveShotcount = 0; // シーンを跨いで保持したい変数
 
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // シーンをまたいで維持
-        }
-        else
-        {
-            Destroy(gameObject); // 既に存在する場合は削除
-        }
-    }
     void Start()
     {
         Debug.Log("Start");
@@ -74,8 +59,9 @@ public class Global : MonoBehaviour
         SceneChangeCheck = false;
         Debug.Log(SceneChangeCheck);
         ChangeCamera();
-        int currentScore = Global.Instance.GetShotCount();
+        int currentScore = GameManager.Instance.GetShotCount();
         ShotCountText.text = "Score:" + currentScore;
+
 
     }
     void SpawnBall(Vector3 position)
@@ -89,8 +75,9 @@ public class Global : MonoBehaviour
     {
         if (!shot)
         {
-            // int currentScore = Global.Instance.GetShotCount();
-            ShotCountText.text = "Score:" + SaveShotcount;
+            GameManager.Instance.AddShotCount(1);
+            int currentScore = GameManager.Instance.GetShotCount();
+            ShotCountText.text = "Score:" + currentScore;
             shot = true;
             Debug.Log("PrepareToShotcount");
         }
@@ -103,10 +90,13 @@ public class Global : MonoBehaviour
         shot = false;
         ChangeCamera();
         imageSwitcher.Available();
+
+        //a
     }
     public void ballMoveStart()
     {
         imageSwitcher.NotAvailable();
+
     }
     public void ChangeCamera()
     {
@@ -232,12 +222,5 @@ public class Global : MonoBehaviour
         }
 
     }
-    public void AddShotCount(int amount)
-    {
-        SaveShotcount += amount;
-    }
-    public int GetShotCount()
-    {
-        return SaveShotcount;
-    }
+
 }
