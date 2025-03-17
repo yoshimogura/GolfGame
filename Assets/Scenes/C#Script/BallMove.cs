@@ -116,6 +116,7 @@ public class BallMove : MonoBehaviour
           Debug.Log(transform.forward * (shotPower / 12));
 
           currentState = BallState.MoveStarted;
+          //2025年3月17日gitの確認コメント
 
 
         }
