@@ -31,7 +31,6 @@ public class Global : MonoBehaviour
     public TextMeshProUGUI nextStageText; // "Next Stage"テキスト用のUI Text 
     public TextMeshProUGUI powerText;
     public ChangeImage imageSwitcher;
-    private bool isSceneSwitching = true;
     private BallMove ballMoveScript;
     public bool cameraPermission = true;
     public GameObject cameraObject;
@@ -113,10 +112,7 @@ public class Global : MonoBehaviour
             shotDirection = (hitPosition - targetObject).normalized;
             shotPower = Mathf.Clamp(Vector3.Distance(targetObject, hitPosition), 0, maxShotPower);
 
-            // UIに現在のショット強さを表示
 
-            // powerText.text = $"Power: {shotPower * 2.5:F1}";
-            // Debug.Log("kitaze");
             // CameraControllerスクリプトを取得
             CameraController cameraController = cameraObject.GetComponent<CameraController>();
 
@@ -126,13 +122,6 @@ public class Global : MonoBehaviour
             Vector3 newCameraPosition = targetObject - (direction * 16f); // 例としてカメラの新しい位置
             newCameraPosition.y += 12f;
             cameraController.SetPosition(newCameraPosition, cup);
-
-
-            // ボールの後ろにカメラを移動 
-            // cameraTransform.position = targetObject + cameraOffset;
-
-            // カメラをfragオブジェクトに向ける 
-
         }
     }
     public void ballFalling()
@@ -159,15 +148,13 @@ public class Global : MonoBehaviour
             }
             WaitAndPrint();
             // audioSource.PlayOneShot(sound1);
-            isSceneSwitching = true;
+
             nextStageText.gameObject.SetActive(true); // "Next Stage"テキストを表示 
             ballMoveScript.Cupin = true;
-
             Debug.Log(NextScenename);
             SceneManager.LoadScene(NextScenename);// 次のシーンに移動 
 
             nextStageText.gameObject.SetActive(false); // テキストを非表示（新しいシーンで非表示にする） 
-            isSceneSwitching = false;
             cameraPermission = true;
 
 
@@ -186,6 +173,7 @@ public class Global : MonoBehaviour
     public void UpdateShotPower(float shotPower)
     {
         powerText.text = $"Power: {shotPower * 5:F1}";
+
     }
 
 
